@@ -33,9 +33,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			/>
 
 			<div class='flex flex-col items-center gap-y-4'>
-				<h1 class='text-3xl font-bold'>Lorem ipsum dolor</h1>
+				<h1 class='text-3xl font-bold'>Oscar Quintero</h1>
 				<a
-					href='https://github.com/srleom/astro-theme-resume.git'
+					href='mailto:oquinterol@unal.edu.co'
 					class='flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
 				>
 					<span class='relative flex items-center justify-center'>
@@ -45,10 +45,10 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
 					</span>
 
-					<p class='font-medium'>Get template</p>
+					<p class='font-medium'>Contáctame</p>
 				</a>
 				<div class='flex gap-x-7 flex-wrap gap-y-3 justify-center'>
-					<Label title='Lorem Ipsum'>
+					<Label title='Bioinformático'>
 						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
 							><path
 								fill='currentColor'
@@ -56,7 +56,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 							></path></svg
 						>
 					</Label>
-					<Label title='Ipsum'>
+					<Label title='Colombia'>
 						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
 							><path
 								fill='currentColor'
@@ -67,7 +67,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 					<Label
 						title='Connect on Linkedin'
 						as='a'
-						href='https://www.linkedin.com/in/example/'
+						href='https://www.linkedin.com/in/quinterol/'
 						target='_blank'
 					>
 						<svg
@@ -107,7 +107,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		</Section>
 
 		<Section title='Experience'>
-			<Card
+			<!-- <Card
 				heading='Lorem Ipsum'
 				subheading='Sit amet consectetur'
 				date='Dec 2022 - Nov 2023'
@@ -123,43 +123,53 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
 					</li>
 				</ul>
-			</Card>
+			</Card> -->
+
 			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
+				heading='Tallerista'
+				subheading='Universidad Distrital Francisco José de Caldas'
+				date='Ene 2018 - Dic 2019'
 				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
+				altText='Licenciado en Biologia'
 				imageClass='h-12 w-auto md:-left-16'
-			/>
+			>
+			<ul class='ml-4 list-disc text-muted-foreground'>
+				<li>Brindé soporte técnico para facilitar la ejecución de talleres destinados a mejorar la alfabetización informática.</li>
+				<li>Ofrecí asistencia para garantizar el desarrollo fluido de talleres técnicos y brindé orientación a los participantes sobre los conceptos básicos de Linux.</li>
+				<li>Apoyé el desarrollo de habilidades técnicas mediante la provisión de orientación experta y soporte técnico, así como la realización de talleres sobre los principios fundamentales de Linux.</li>
+			</ul>
+			</Card>
 		</Section>
 
 		<Section title='Education'>
 			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
+				heading='Master en Bioinformática'
+				subheading='Universidad Nacional de Colombia'
+				date='Jun 2023 - Present'
 				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
+				altText='Maestria en Bioinformatica'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<ul class='ml-4 list-disc text-muted-foreground'>
 					<li>
 						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
 						molestiae laboriosam pariatur!
-
-						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
 					</li>
 				</ul>
 			</Card>
 			<Card
-				heading='Lorem Ipsum'
-				subheading='Sit amet consectetur'
-				date='Dec 2022 - Nov 2023'
+				heading='Licenciado en Biología'
+				subheading='Universidad Distrital Francisco José de Caldas'
+				date='Ene 2016 - Dic 2022'
 				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
+				altText='Licenciado en Biologia'
 				imageClass='h-12 w-auto md:-left-16'
-			/>
+			>
+			<ul class='ml-4 list-disc text-muted-foreground'>
+				<li>Prueba de textoo</li>
+				<li>Otro Texto</li>
+			</ul>
+			</Card>
 		</Section>
 
 		<Section title='Projects'>
