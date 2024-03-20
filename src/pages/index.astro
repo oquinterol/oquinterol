@@ -12,10 +12,10 @@ import astro from '../assets/about-astro.png'
 
 import { getAllPosts, sortMDByDate } from '@/utils'
 
-const languages = ['lorem', 'ipsum']
-const frontend = ['lorem', 'ipsum', 'lorem', 'ipsum', 'lorem', 'ipsum', 'lorem']
-const backend = ['lorem', 'ipsum', 'lorem', 'ipsum']
-const others = ['lorem', 'ipsum', 'lorem', 'ipsum', 'lorem']
+const languages = ['Español', 'Inglés']
+const programming = ['Python', 'Bash', 'R', 'LaTeX']
+const bioskill = ['Transcriptoma', 'Genoma', 'GWAS']
+const others = ['Nextflow', 'Slurm', 'Snakemake']
 
 const MAX_POSTS = 10
 const allPosts = await getAllPosts()
@@ -45,7 +45,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
 					</span>
 
-					<p class='font-medium'>Contáctame</p>
+					<p class='font-medium'>Contácteme</p>
 				</a>
 				<div class='flex gap-x-7 flex-wrap gap-y-3 justify-center'>
 					<Label title='Bioinformático'>
@@ -65,7 +65,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						>
 					</Label>
 					<Label
-						title='Connect on Linkedin'
+						title='Conéctate en Linkedin'
 						as='a'
 						href='https://www.linkedin.com/in/quinterol/'
 						target='_blank'
@@ -85,7 +85,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			</div>
 		</section>
 
-		<Section title='About'>
+		<Section title='Sobre mí'>
 			<p class='text-muted-foreground'>
 				Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque quia omnis
 				consectetur, voluptas praesentium veniam blanditiis ratione asperiores accusantium laborum
@@ -94,7 +94,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			</p>
 		</Section>
 
-		<Section title='Posts'>
+		<!-- <Section title='Posts'>
 			<ul class='flex flex-col gap-y-2'>
 				{
 					allPostsByDate.map((p) => (
@@ -104,10 +104,10 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 					))
 				}
 			</ul>
-		</Section>
+		</Section> -->
 
-		<Section title='Experience'>
-			<!-- <Card
+		<!-- <Section title='Experience'>
+			<Card
 				heading='Lorem Ipsum'
 				subheading='Sit amet consectetur'
 				date='Dec 2022 - Nov 2023'
@@ -123,7 +123,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						<li>Lorem ipsum dolor sit amet consectetur adipisicing elit. Molestiae, pariatur!</li>
 					</li>
 				</ul>
-			</Card> -->
+			</Card>
 
 			<Card
 				heading='Tallerista'
@@ -139,22 +139,19 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				<li>Apoyé el desarrollo de habilidades técnicas mediante la provisión de orientación experta y soporte técnico, así como la realización de talleres sobre los principios fundamentales de Linux.</li>
 			</ul>
 			</Card>
-		</Section>
+		</Section> -->
 
-		<Section title='Education'>
+		<Section title='Educación'>
 			<Card
 				heading='Master en Bioinformática'
 				subheading='Universidad Nacional de Colombia'
-				date='Jun 2023 - Present'
+				date='Jun 2023 - Presente'
 				imagePath='/src/assets/about-astro.png'
-				altText='Maestria en Bioinformatica'
+				altText='Maestría en Bioinformática'
 				imageClass='h-12 w-auto md:-left-16'
 			>
 				<ul class='ml-4 list-disc text-muted-foreground'>
-					<li>
-						Lorem, ipsum dolor sit amet consectetur adipisicing elit. Dolore debitis recusandae, ut
-						molestiae laboriosam pariatur!
-					</li>
+					<!-- PoliploidesPoliploides -->
 				</ul>
 			</Card>
 			<Card
@@ -165,14 +162,13 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Licenciado en Biologia'
 				imageClass='h-12 w-auto md:-left-16'
 			>
-			<ul class='ml-4 list-disc text-muted-foreground'>
-				<li>Prueba de textoo</li>
-				<li>Otro Texto</li>
-			</ul>
+			<!-- <ul class='ml-4 list-disc text-muted-foreground'>
+				<li></li>
+			</ul> -->
 			</Card>
 		</Section>
 
-		<Section title='Projects'>
+		<!-- <Section title='Projects'>
 			<div class='flex flex-col gap-y-3 sm:flex-row sm:gap-x-3 sm:gap-y-0'>
 				<ProjectCard
 					href='https://www.google.com'
@@ -191,9 +187,9 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 					class='w-full sm:w-1/2'
 				/>
 			</div>
-		</Section>
+		</Section> -->
 
-		<Section title='Certifications'>
+		<Section title='Certificaciones'>
 			<Card
 				as='a'
 				heading='Lorem ipsum, dolor sit amet consectetur adipisicing.'
@@ -202,28 +198,28 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				imagePath='/src/assets/about-astro.png'
 				altText='Lorem, ipsum dolor sit'
 				imageClass='h-11 w-auto md:-left-16'
-				href='https://www.google.com'
+				href='https://google.com'
 			/>
 			<Card
 				as='a'
-				heading='Lorem ipsum, dolor sit amet'
-				subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dicta.'
-				date='Mar 2029 - Mar 2032'
+				heading='Curso Nacional de Formación sobre Inducción de Mutaciones en Cultivos Poliploides'
+				subheading='IAEA (International Atomic Energy Agency)'
+				date='Jul 2022'
 				imagePath='/src/assets/about-astro.png'
-				altText='Lorem, ipsum dolor sit'
+				altText='Curso Nacional de IAEA'
 				imageClass='h-11 w-auto md:-left-16'
-				href='https://www.google.com'
+				href='./assets/docs/training-mutation-induction.pdf'
 			/>
 		</Section>
 
-		<Section title='Skills'>
+		<Section title='Habilidades'>
 			<SkillLayout title='Languages' skills={languages} />
-			<SkillLayout title='Frontend' skills={frontend} />
-			<SkillLayout title='Backend' skills={backend} />
-			<SkillLayout title='Others' skills={others} />
+			<SkillLayout title='Programación' skills={programming} />
+			<SkillLayout title='Bioinformática' skills={bioskill} />
+			<SkillLayout title='Otras' skills={others} />
 		</Section>
 	</div>
-	<a
+	<!-- <a
 		href='https://github.com/srleom/astro-theme-resume.git'
 		class='mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
 	>
@@ -235,5 +231,5 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		</span>
 
 		<p class='font-medium'>Get template</p>
-	</a>
+	</a> -->
 </PageLayout>
