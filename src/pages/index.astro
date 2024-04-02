@@ -8,7 +8,7 @@ import SkillLayout from '../components/SkillLayout.astro'
 import PostPreview from '@/components/blog/PostPreview.astro'
 
 import { Image } from 'astro:assets'
-import astro from '../assets/about-astro.png'
+import astro from '../assets/1710941350622.webp'
 
 import { getAllPosts, sortMDByDate } from '@/utils'
 
@@ -28,14 +28,15 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			<Image
 				src={astro}
 				alt='profile photo'
-				class='h-28 w-auto rounded-full bg-[#FFBE98] p-2'
+				class='h-auto w-28 rounded-full'
 				loading='eager'
 			/>
 
 			<div class='flex flex-col items-center gap-y-4'>
 				<h1 class='text-3xl font-bold'>Oscar Quintero</h1>
 				<a
-					href='mailto:oquinterol@unal.edu.co'
+					target="_blank"
+					href='/docs/resume_cv.pdf'
 					class='flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
 				>
 					<span class='relative flex items-center justify-center'>
@@ -45,7 +46,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
 					</span>
 
-					<p class='font-medium'>Contácteme</p>
+					<p class='font-medium'>Contáctame</p>
 				</a>
 				<div class='flex gap-x-7 flex-wrap gap-y-3 justify-center'>
 					<Label title='Bioinformático'>
@@ -219,7 +220,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			<SkillLayout title='Otras' skills={others} />
 		</Section>
 	</div>
-	<!-- <a
+	<a
 		href='https://github.com/srleom/astro-theme-resume.git'
 		class='mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
 	>
@@ -231,5 +232,5 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		</span>
 
 		<p class='font-medium'>Get template</p>
-	</a> -->
+	</a>
 </PageLayout>
