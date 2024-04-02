@@ -46,7 +46,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
 					</span>
 
-					<p class='font-medium'>Contáctame</p>
+					<p class='font-medium'>Descargar CV</p>
 				</a>
 				<div class='flex gap-x-7 flex-wrap gap-y-3 justify-center'>
 					<Label title='Bioinformático'>
@@ -199,7 +199,6 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				imagePath='/src/assets/about-astro.png'
 				altText='Lorem, ipsum dolor sit'
 				imageClass='h-11 w-auto md:-left-16'
-				href='https://google.com'
 			/>
 			<Card
 				as='a'
@@ -209,7 +208,6 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				imagePath='/src/assets/about-astro.png'
 				altText='Curso Nacional de IAEA'
 				imageClass='h-11 w-auto md:-left-16'
-				href='/docs/training-mutation-induction.pdf'
 			/>
 		</Section>
 
@@ -221,7 +219,8 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		</Section>
 	</div>
 	<a
-		href='https://github.com/srleom/astro-theme-resume.git'
+		target="_blank"
+		href='mailto:oquinterol@unal.edu.co'
 		class='mt-16 flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
 	>
 		<span class='relative flex items-center justify-center'>
@@ -231,6 +230,6 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
 		</span>
 
-		<p class='font-medium'>Get template</p>
+		<p class='font-medium'>Contácteme</p>
 	</a>
 </PageLayout>
