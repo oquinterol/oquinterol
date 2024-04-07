@@ -22,7 +22,7 @@ const allPosts = await getAllPosts()
 const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 ---
 
-<PageLayout meta={{ title: 'Home' }}>
+<PageLayout meta={{ title: 'CV' }}>
 	<div class='flex w-full flex-col gap-y-10'>
 		<section class='flex flex-col items-center gap-y-7'>
 			<Image
@@ -33,7 +33,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			/>
 
 			<div class='flex flex-col items-center gap-y-4'>
-				<h1 class='text-3xl font-bold'>Oscar Quintero</h1>
+				<h1 class='text-3xl font-bold'>Oscar A. Quintero Lopéz</h1>
 				<a
 					target="_blank"
 					href='/docs/resume_cv.pdf'
@@ -57,7 +57,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 							></path></svg
 						>
 					</Label>
-					<Label title='Colombia'>
+					<Label title='Bogotá D.C., Colombia'>
 						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
 							><path
 								fill='currentColor'
@@ -66,7 +66,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 						>
 					</Label>
 					<Label
-						title='Conéctate en Linkedin'
+						title='Conéctate en LinkedIn'
 						as='a'
 						href='https://www.linkedin.com/in/quinterol/'
 						target='_blank'
@@ -88,10 +88,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
 		<Section title='Sobre mí'>
 			<p class='text-muted-foreground'>
-				Lorem ipsum dolor sit amet consectetur adipisicing elit. Reiciendis atque quia omnis
-				consectetur, voluptas praesentium veniam blanditiis ratione asperiores accusantium laborum
-				odit commodi quis deserunt incidunt et dolor iure ut! Lorem ipsum dolor sit, amet
-				consectetur adipisicing elit. Alias quia, doloribus ut beatae perspiciatis voluptatibus.
+				Como bioinformático y licenciado en Biología, mi pasión radica en el cruce de la tecnología y la ciencia de la vida, particularmente en el desarrollo y aplicación de modelos genómicos para la mejora de cultivos. Actualmente, me encuentro ampliando mis conocimientos mediante una maestría en Bioinformática en la Universidad Nacional de Colombia. Mi experiencia incluye el desarrollo de pipelines bioinformáticos para análisis de RNA-Seq. Me enorgullece contribuir a la investigación y educación en bioinformática, enfocándome en aplicar soluciones tecnológicas para abordar desafíos complejos en biología.
 			</p>
 		</Section>
 
@@ -144,10 +141,10 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
 		<Section title='Educación'>
 			<Card
-				heading='Master en Bioinformática'
+				heading='Estudiante Master en Bioinformática'
 				subheading='Universidad Nacional de Colombia'
 				date='Jun 2023 - Presente'
-				imagePath='/src/assets/about-astro.png'
+				imagePath='/src/assets/blank.png'
 				altText='Maestría en Bioinformática'
 				imageClass='h-12 w-auto md:-left-16'
 			>
@@ -159,7 +156,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				heading='Licenciado en Biología'
 				subheading='Universidad Distrital Francisco José de Caldas'
 				date='Ene 2016 - Dic 2022'
-				imagePath='/src/assets/about-astro.png'
+				imagePath='/src/assets/blank.png'
 				altText='Licenciado en Biologia'
 				imageClass='h-12 w-auto md:-left-16'
 			>
@@ -193,26 +190,26 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 		<Section title='Certificaciones'>
 			<Card
 				as='a'
-				heading='Lorem ipsum, dolor sit amet consectetur adipisicing.'
-				subheading='Lorem ipsum dolor sit amet consectetur adipisicing elit. Aperiam dicta magni consequuntur corrupti.'
+				heading='ALGORITMIA 0.0'
+				subheading='Universidad Nacional de Colombia'
 				date='Mar 2024 - Mar 2024'
-				imagePath='/src/assets/about-astro.png'
+				imagePath='/src/assets/blank.png'
 				altText='Lorem, ipsum dolor sit'
 				imageClass='h-11 w-auto md:-left-16'
 			/>
 			<Card
 				as='a'
 				heading='Curso Nacional de Formación sobre Inducción de Mutaciones en Cultivos Poliploides'
-				subheading='IAEA (International Atomic Energy Agency)'
+				subheading='IAEA (International Atomic Energy Agency), Universidad Distrital Francisco José de Caldas, Universidad Nacional de Colombia'
 				date='Jul 2022'
-				imagePath='/src/assets/about-astro.png'
+				imagePath='/src/assets/blank.png'
 				altText='Curso Nacional de IAEA'
 				imageClass='h-11 w-auto md:-left-16'
 			/>
 		</Section>
 
 		<Section title='Habilidades'>
-			<SkillLayout title='Languages' skills={languages} />
+			<SkillLayout title='Idiomas' skills={languages} />
 			<SkillLayout title='Programación' skills={programming} />
 			<SkillLayout title='Bioinformática' skills={bioskill} />
 			<SkillLayout title='Otras' skills={others} />
