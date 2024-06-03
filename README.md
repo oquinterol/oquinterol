@@ -1,4 +1,4 @@
-- 👋 Hi, I’m @quinterol
+- 👋 Hi, I’m @oquinterol
 - 👀 I’m interested in bioinformatics
 <!---
 quinterol/quinterol is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
