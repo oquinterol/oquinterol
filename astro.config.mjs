@@ -10,7 +10,7 @@ import { expressiveCodeOptions } from './src/site.config'
 
 // https://astro.build/config
 export default defineConfig({
-	site: 'https://quinterol.com',
+	site: 'https://oquinterol.com',
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
 		tailwind({
