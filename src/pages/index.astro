@@ -8,14 +8,61 @@ import SkillLayout from '../components/SkillLayout.astro'
 import PostPreview from '@/components/blog/PostPreview.astro'
 
 import { Image } from 'astro:assets'
-import astro from '../assets/1710941350622.webp'
+import astro from '../assets/Perfil.png'
 
 import { getAllPosts, sortMDByDate } from '@/utils'
 
-const languages = ['Español', 'Inglés']
-const programming = ['Python', 'Bash', 'R', 'LaTeX']
-const bioskill = ['Transcriptoma', 'Genoma', 'GWAS']
-const others = ['Nextflow', 'Slurm', 'Snakemake']
+const languages = ['Español (Nativo)', 'Inglés (Intermedio)']
+const bioinformatics = [
+	'BWA/Bowtie2',
+	'BLAST+',
+	'GATK',
+	'RNA-seq',
+	'GBS',
+	'de novo assembly',
+	'Trimmomatic',
+	'Trinity',
+	'FastQC/MultiQC',
+	'BUSCO',
+	'BlobToolKit',
+	'AUGUSTUS'
+]
+const systemsBiology = [
+	'COBRApy',
+	'COBRA Toolbox',
+	'SBML',
+	'KEGG API',
+	'MEMOTE',
+	'FBA/FVA',
+	'Gap-filling'
+]
+const programming = [
+	'Python (pandas, NumPy, SciPy)',
+	'R (tidyverse, ggplot2)',
+	'Bash',
+	'SQL/SQLite',
+	'AWK',
+	'MATLAB',
+	'Streamlit',
+	'Jupyter'
+]
+const systems = [
+	'Linux (Debian/Ubuntu/Arch)',
+	'Docker/Compose',
+	'SLURM',
+	'Environment Modules',
+	'SSH/Administración de clúster'
+]
+const workflows = [
+	'Git/GitHub',
+	'GitHub Actions (CI/CD)',
+	'Make',
+	'Snakemake',
+	'Nextflow',
+	'Conda',
+	'pyenv',
+	'LaTeX/Markdown'
+]
 
 const MAX_POSTS = 10
 const allPosts = await getAllPosts()
@@ -34,20 +81,36 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 
 			<div class='flex flex-col items-center gap-y-4'>
 				<h1 class='text-3xl font-bold'>Oscar A. Quintero Lopéz</h1>
-				<a
-					target="_blank"
-					href='/docs/resume_cv.pdf'
-					class='flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
-				>
-					<span class='relative flex items-center justify-center'>
-						<span
-							class='absolute inline-flex h-2 w-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
-						></span>
-						<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
-					</span>
+				<div class='flex gap-x-3'>
+					<a
+						target="_blank"
+						href='https://github.com/oquinterol/CurriculumVitae/releases/latest/download/cv_spanish.pdf'
+						class='flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
+					>
+						<span class='relative flex items-center justify-center'>
+							<span
+								class='absolute inline-flex h-2 w-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
+							></span>
+							<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
+						</span>
 
-					<p class='font-medium'>Descargar CV</p>
-				</a>
+						<p class='font-medium'>CV Español</p>
+					</a>
+					<a
+						target="_blank"
+						href='https://github.com/oquinterol/CurriculumVitae/releases/latest/download/cv_english.pdf'
+						class='flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
+					>
+						<span class='relative flex items-center justify-center'>
+							<span
+								class='absolute inline-flex h-2 w-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
+							></span>
+							<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
+						</span>
+
+						<p class='font-medium'>CV English</p>
+					</a>
+				</div>
 				<div class='flex gap-x-7 flex-wrap gap-y-3 justify-center'>
 					<Label title='Bioinformático'>
 						<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' class='h-5 w-5' slot='icon'
@@ -68,7 +131,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 					<Label
 						title='Conéctate en LinkedIn'
 						as='a'
-						href='https://www.linkedin.com/in/quinterol/'
+						href='https://www.linkedin.com/in/oquinterol/'
 						target='_blank'
 					>
 						<svg
@@ -187,7 +250,7 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 			</div>
 		</Section> -->
 
-		<Section title='Certificaciones'>
+		<!-- <Section title='Certificaciones'>
 			<Card
 				as='a'
 				heading='ALGORITMIA 0.0'
@@ -206,13 +269,15 @@ const allPostsByDate = sortMDByDate(allPosts).slice(0, MAX_POSTS)
 				altText='Curso Nacional de IAEA'
 				imageClass='h-11 w-auto md:-left-16'
 			/>
-		</Section>
+		</Section> -->
 
 		<Section title='Habilidades'>
 			<SkillLayout title='Idiomas' skills={languages} />
-			<SkillLayout title='Programación' skills={programming} />
-			<SkillLayout title='Bioinformática' skills={bioskill} />
-			<SkillLayout title='Otras' skills={others} />
+			<SkillLayout title='Bioinformática' skills={bioinformatics} />
+			<SkillLayout title='Biología de Sistemas / GEMs' skills={systemsBiology} />
+			<SkillLayout title='Programación y Análisis' skills={programming} />
+			<SkillLayout title='Sistemas y HPC' skills={systems} />
+			<SkillLayout title='Reproducibilidad y Flujos de Trabajo' skills={workflows} />
 		</Section>
 	</div>
 	<a
