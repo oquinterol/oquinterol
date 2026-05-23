@@ -1,9 +1,12 @@
 ---
 import type { CollectionEntry } from 'astro:content'
+import { render } from 'astro:content'
 
 import BlogHero from '@/components/blog/Hero.astro'
 import TOC from '@/components/blog/TOC.astro'
 import Button from '@/components/Button.astro'
+
+import { getPostSlug } from '@/utils'
 
 import PageLayout from './BaseLayout.astro'
 
@@ -13,13 +16,13 @@ interface Props {
 
 const { post } = Astro.props
 const {
-	data: { description, ogImage, publishDate, title, updatedDate },
-	slug
+	data: { description, ogImage, publishDate, title, updatedDate }
 } = post
 
+const slug = getPostSlug(post)
 const socialImage = ogImage ?? `/og-image/${slug}.png`
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString()
-const { headings } = await post.render()
+const { headings } = await render(post)
 ---
 
 <PageLayout meta={{ articleDate, description, ogImage: socialImage, title }}>

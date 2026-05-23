@@ -1,7 +1,20 @@
-- 👋 Hi, I’m @oquinterol
-- 👀 I’m interested in bioinformatics
-<!---
-quinterol/quinterol is a ✨ special ✨ repository because its `README.md` (this file) appears on your GitHub profile.
-You can click the Preview link to take a look at your changes.
---->
-<p><img align="left" src="https://github-readme-stats.vercel.app/api/top-langs?username=oquinterol&show_icons=true&locale=en&layout=compact" alt="emrangel" /></p
+# oquinterol.com
+
+Sitio personal y blog de Oscar A. Quintero López, bioinformático enfocado en genómica, biología de sistemas y reproducibilidad computacional.
+
+## Desarrollo
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## Validación y build
+
+```bash
+pnpm run format:check
+pnpm run lint:check
+pnpm run build
+```
+
+El sitio se despliega automáticamente a GitHub Pages desde `main` mediante GitHub Actions.

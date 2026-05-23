@@ -1,6 +1,5 @@
 import { defineConfig } from 'astro/config'
 import mdx from '@astrojs/mdx'
-import tailwind from '@astrojs/tailwind'
 import sitemap from '@astrojs/sitemap'
 import { remarkReadingTime } from './src/utils/remarkReadingTime.ts'
 import remarkUnwrapImages from 'remark-unwrap-images'
@@ -13,9 +12,6 @@ export default defineConfig({
 	site: 'https://oquinterol.com',
 	integrations: [
 		expressiveCode(expressiveCodeOptions),
-		tailwind({
-			applyBaseStyles: false
-		}),
 		sitemap(),
 		mdx()
 	],
@@ -26,7 +22,7 @@ export default defineConfig({
 				rehypeExternalLinks,
 				{
 					target: '_blank',
-					rel: ['nofollow, noopener, noreferrer']
+					rel: ['nofollow', 'noopener', 'noreferrer']
 				}
 			]
 		],
@@ -36,5 +32,5 @@ export default defineConfig({
 			}
 		}
 	},
-	prefetch: true,
+	prefetch: true
 })
