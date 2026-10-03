@@ -17,6 +17,7 @@ const navItems = [
 	{ page: 'home' as const, label: ui[locale].nav.home },
 	{ page: 'research' as const, label: ui[locale].nav.research },
 	{ page: 'lab' as const, label: ui[locale].nav.lab },
+	{ page: 'tools' as const, label: ui[locale].nav.tools },
 	{ page: 'cv' as const, label: ui[locale].nav.cv }
 ]
 ---
@@ -34,7 +35,9 @@ const navItems = [
 							<a
 								href={localizedPath(locale, item.page)}
 								aria-current={
-									page === item.page || (page === 'research-detail' && item.page === 'research')
+									page === item.page ||
+									(page === 'research-detail' && item.page === 'research') ||
+									(page === 'vector-editor' && item.page === 'tools')
 										? 'page'
 										: undefined
 								}

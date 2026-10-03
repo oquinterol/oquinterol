@@ -7,7 +7,13 @@ export const ui = {
 		selectLanguage: 'Elige un idioma',
 		languageHint: 'Una forma de explorar cómo conecto la biología, la computación y los sistemas.',
 		languageSuggestion: 'Idioma sugerido por tu navegador',
-		nav: { home: 'Inicio', research: 'Investigación', lab: 'Laboratorio', cv: 'CV' },
+		nav: {
+			home: 'Inicio',
+			research: 'Investigación',
+			lab: 'Laboratorio',
+			tools: 'Herramientas',
+			cv: 'CV'
+		},
 		languageSwitch: 'Leer esta página en inglés',
 		brand: 'Quintero-L, O. — Inicio',
 		home: {
@@ -69,6 +75,21 @@ export const ui = {
 			contactLabel: 'Conversación',
 			contactTitle: 'Conectar investigación y construcción.',
 			contactLink: 'Escribirme'
+		},
+		tools: {
+			label: 'Herramientas',
+			intro:
+				'Herramientas abiertas para el laboratorio y la bioinformática, que corren en tu navegador.',
+			status: 'Prototipo',
+			code: 'Código en GitHub',
+			open: 'Abrir',
+			vectorEditor: {
+				title: 'Editor de vectores',
+				summary:
+					'Simula una clonación: elige enzimas comerciales (REBASE) o propias, digiere vector e inserto, liga y obtén en vivo el FASTA y el mapa circular del plásmido.',
+				noscript: 'Esta herramienta necesita JavaScript: todo el cálculo ocurre en tu navegador.',
+				repository: 'https://github.com/oquinterol/vector-editor'
+			}
 		},
 		lab: {
 			label: 'Laboratorio',
@@ -167,7 +188,7 @@ export const ui = {
 		selectLanguage: 'Choose a language',
 		languageHint: 'A way to explore how I connect biology, computing, and systems.',
 		languageSuggestion: 'Language suggested by your browser',
-		nav: { home: 'Home', research: 'Research', lab: 'Lab', cv: 'CV' },
+		nav: { home: 'Home', research: 'Research', lab: 'Lab', tools: 'Tools', cv: 'CV' },
 		languageSwitch: 'Leer esta página en español',
 		brand: 'Quintero-L, O. — Home',
 		home: {
@@ -229,6 +250,20 @@ export const ui = {
 			contactLabel: 'Conversation',
 			contactTitle: 'Connecting research and engineering.',
 			contactLink: 'Get in touch'
+		},
+		tools: {
+			label: 'Tools',
+			intro: 'Open tools for the lab and bioinformatics that run in your browser.',
+			status: 'Prototype',
+			code: 'Code on GitHub',
+			open: 'Open',
+			vectorEditor: {
+				title: 'Vector editor',
+				summary:
+					'Simulate a cloning: choose commercial (REBASE) or custom enzymes, digest vector and insert, ligate, and get a live FASTA and circular map of the plasmid.',
+				noscript: 'This tool needs JavaScript: all computation happens in your browser.',
+				repository: 'https://github.com/oquinterol/vector-editor'
+			}
 		},
 		lab: {
 			label: 'Lab',

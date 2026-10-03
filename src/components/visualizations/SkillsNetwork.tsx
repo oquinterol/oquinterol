@@ -119,7 +119,6 @@ export default function SkillsNetwork({ areas, domains, copy }: Props) {
 	useEffect(() => setHydrated(true), [])
 	const target = useMemo(() => layout(areas, selected), [areas, selected])
 	const pos = useTween(target, reduced)
-	const domainOf = Object.fromEntries(areas.map((area) => [area.id, area.domain]))
 
 	const isLit = (areaId: string) => selected === null || selected === areaId
 	const pathwayLit = ([a, b]: [string, string]) =>

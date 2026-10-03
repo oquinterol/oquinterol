@@ -15,6 +15,10 @@ const expected = [
 	'en/lab/index.html',
 	'es/research/phureja-rnaseq-pipeline/index.html',
 	'en/research/phureja-rnaseq-pipeline/index.html',
+	'es/tools/index.html',
+	'en/tools/index.html',
+	'es/tools/vector-editor/index.html',
+	'en/tools/vector-editor/index.html',
 	'blog/index.html',
 	'tags/index.html',
 	'404.html',
@@ -46,6 +50,8 @@ const pairs = [
 	['/es/cv/', '/en/cv/'],
 	['/es/research/', '/en/research/'],
 	['/es/lab/', '/en/lab/'],
+	['/es/tools/', '/en/tools/'],
+	['/es/tools/vector-editor/', '/en/tools/vector-editor/'],
 	['/es/research/phureja-rnaseq-pipeline/', '/en/research/phureja-rnaseq-pipeline/'],
 	...(englishArticle ? [articlePair] : [])
 ]
@@ -74,6 +80,10 @@ const allPages = [
 	'en/lab/index.html',
 	'es/research/phureja-rnaseq-pipeline/index.html',
 	'en/research/phureja-rnaseq-pipeline/index.html',
+	'es/tools/index.html',
+	'en/tools/index.html',
+	'es/tools/vector-editor/index.html',
+	'en/tools/vector-editor/index.html',
 	'blog/index.html',
 	'tags/index.html',
 	'404.html'

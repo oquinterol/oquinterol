@@ -928,6 +928,68 @@
 		display: none;
 	}
 }
+/* Vector editor themed with the biopunk tokens. */
+.new-site .ve {
+	--ve-theme-bg: var(--bp-ink);
+	--ve-theme-surface: var(--paper);
+	--ve-theme-ink: var(--bp-sterile);
+	--ve-theme-muted: var(--bp-muted);
+	--ve-theme-line: var(--bp-tissue);
+	--ve-theme-accent: var(--bp-bio);
+	--ve-theme-warn: var(--bp-toxic);
+	--ve-theme-error: #ff6577;
+	--ve-theme-mono: var(--mono);
+	--ve-theme-map-bg: var(--bp-ink);
+	--ve-theme-map-ink: var(--bp-sterile);
+	--ve-theme-map-muted: var(--bp-boundary);
+	--ve-theme-map-cut: var(--bp-pink);
+}
+/* Map as a specimen under the microscope: reticle grid, vignette, glowing arcs. */
+.new-site .ve-map {
+	position: relative;
+	border-color: var(--bp-tissue);
+	background:
+		radial-gradient(circle at center, transparent 40%, var(--bp-void) 95%),
+		linear-gradient(var(--bp-tissue) 1px, transparent 1px) 0 0 / 100% 1.5rem,
+		linear-gradient(90deg, var(--bp-tissue) 1px, transparent 1px) 0 0 / 1.5rem 100%,
+		var(--bp-ink);
+}
+.new-site .ve-map::after {
+	/* Corner brackets of the field of view. */
+	content: '';
+	position: absolute;
+	inset: 0.75rem;
+	pointer-events: none;
+	background:
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) top left / 1.2rem 1px no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) top left / 1px 1.2rem no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) top right / 1.2rem 1px no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) top right / 1px 1.2rem no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) bottom left / 1.2rem 1px no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) bottom left / 1px 1.2rem no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) bottom right / 1.2rem 1px no-repeat,
+		linear-gradient(var(--bp-boundary), var(--bp-boundary)) bottom right / 1px 1.2rem no-repeat;
+}
+.new-site .ve-map .la-vz-annotation {
+	filter: drop-shadow(0 0 6px currentColor);
+}
+.new-site .ve-map .la-vz-annotation[fill='#5ed9d1'] {
+	color: rgb(94 217 209 / 0.55);
+}
+.new-site .ve-map .la-vz-annotation[fill='#a4e66d'] {
+	color: rgb(164 230 109 / 0.55);
+}
+.new-site .ve-map .la-vz-circular-label[id$='-fwd'],
+.new-site .ve-map .la-vz-circular-label[id$='-rev'] {
+	fill: var(--bp-pink) !important;
+}
+.tool-page .page-heading {
+	padding-bottom: 2rem;
+}
+.secondary-link + .secondary-link,
+.research-list .text-link + .text-link {
+	margin-left: 1.5rem;
+}
 .research-list {
 	list-style: none;
 	padding: 0;
