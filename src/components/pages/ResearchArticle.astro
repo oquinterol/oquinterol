@@ -23,8 +23,12 @@ const {
 	advisor,
 	license,
 	links,
-	steps
+	steps,
+	schematic,
+	methodLabel,
+	methodIntro
 } = entry.data
+const isSoftware = kind === 'research-software'
 const availableLocales = researchLocales(await getPublishedResearch(), id)
 const copy = ui[locale].research
 const { Content } = await render(entry)
@@ -42,8 +46,7 @@ const { Content } = await render(entry)
 		<a class='text-link back-link' href={localizedPath(locale, 'research')}>← {copy.back}</a>
 		<header class='page-heading'>
 			<p class='eyebrow'>
-				{copy.kinds[kind]} · {institution}
-				{year && ` · ${year}`}
+				{[copy.kinds[kind], institution, year].filter(Boolean).join(' · ')}
 			</p>
 			<h1>{title}</h1>
 			<p class='lead'>{summary}</p>
@@ -51,12 +54,13 @@ const { Content } = await render(entry)
 		{
 			steps && (
 				<section class='pipeline-section' aria-labelledby='pipeline-title'>
-					<p class='eyebrow'>{copy.method}</p>
-					<h2 id='pipeline-title'>{copy.methodIntro}</h2>
+					<p class='eyebrow'>{methodLabel ?? copy.method}</p>
+					<h2 id='pipeline-title'>{methodIntro ?? copy.methodIntro}</h2>
 					<PipelineExplorer
 						steps={steps}
-						label={copy.method}
-						schematicNote={copy.schematicNote}
+						label={methodLabel ?? copy.method}
+						schematic={schematic}
+						schematicNote={schematic === 'agent-loop' ? copy.loopNote : copy.schematicNote}
 						playLabel={copy.playTour}
 						stopLabel={copy.stopTour}
 						client:visible
@@ -67,7 +71,7 @@ const { Content } = await render(entry)
 		<div class='article-body'><Content /></div>
 		<aside class='source-note'>
 			<h2>{copy.provenance}</h2>
-			<p>{copy.provenanceText}</p>
+			<p>{isSoftware ? copy.softwareProvenance : copy.provenanceText}</p>
 			<dl class='source-facts'>
 				{
 					advisor && (
@@ -103,7 +107,10 @@ const { Content } = await render(entry)
 					)
 				}
 			</dl>
-			<a class='text-link' href={sourceUrl}>{copy.readSource} <span aria-hidden='true'>↗</span></a>
+			<a class='text-link' href={sourceUrl}>
+				{isSoftware ? copy.readCode : copy.readSource}
+				<span aria-hidden='true'>↗</span>
+			</a>
 		</aside>
 	</article>
 </LocalizedLayout>

@@ -15,6 +15,8 @@ const expected = [
 	'en/lab/index.html',
 	'es/research/phureja-rnaseq-pipeline/index.html',
 	'en/research/phureja-rnaseq-pipeline/index.html',
+	'es/research/genome-agent/index.html',
+	'en/research/genome-agent/index.html',
 	'es/tools/index.html',
 	'en/tools/index.html',
 	'es/tools/vector-editor/index.html',
@@ -53,6 +55,7 @@ const pairs = [
 	['/es/tools/', '/en/tools/'],
 	['/es/tools/vector-editor/', '/en/tools/vector-editor/'],
 	['/es/research/phureja-rnaseq-pipeline/', '/en/research/phureja-rnaseq-pipeline/'],
+	['/es/research/genome-agent/', '/en/research/genome-agent/'],
 	...(englishArticle ? [articlePair] : [])
 ]
 
@@ -80,6 +83,8 @@ const allPages = [
 	'en/lab/index.html',
 	'es/research/phureja-rnaseq-pipeline/index.html',
 	'en/research/phureja-rnaseq-pipeline/index.html',
+	'es/research/genome-agent/index.html',
+	'en/research/genome-agent/index.html',
 	'es/tools/index.html',
 	'en/tools/index.html',
 	'es/tools/vector-editor/index.html',

@@ -1,0 +1,53 @@
+---
+id: genome-agent
+locale: es
+title: 'GenomeAgent: un agente autónomo para ensamblar genomas dentro de los límites de la máquina'
+summary: Un agente científico que planifica, ejecuta, evalúa y replantea ensamblajes de genomas, con un modelo de lenguaje que razona y un harness que tiene la última palabra.
+sourceUrl: https://github.com/oquinterol/Agentic-Bioinformatician
+kind: research-software
+year: 2026
+license:
+  name: MIT
+  url: https://github.com/oquinterol/Agentic-Bioinformatician/blob/master/LICENSE
+links:
+  - label: Arquitectura
+    url: https://github.com/oquinterol/Agentic-Bioinformatician/blob/master/docs/ARCHITECTURE.md
+  - label: Hoja de ruta y hallazgos
+    url: https://github.com/oquinterol/Agentic-Bioinformatician/blob/master/docs/ROADMAP.md
+schematic: agent-loop
+methodLabel: Ciclo del agente
+methodIntro: Cada paso pasa por el harness, que valida recursos, permisos y procedencia antes de continuar.
+steps:
+  - title: Observar
+    detail: El harness inventaría la máquina (CPU, RAM, disco) y el estado del proyecto. El modelo lo lee; nunca lo escribe.
+  - title: Planear
+    detail: El modelo elige herramienta y parámetros entre operaciones tipadas. No tiene shell ni escribe comandos.
+  - title: Estimar
+    detail: Cada adaptador estima la memoria y los hilos que necesitará; el harness rechaza lo que no cabe en el presupuesto.
+  - title: Ejecutar
+    detail: El harness lanza el trabajo sin shell, con salida solo dentro del proyecto y límites del kernel cuando están disponibles.
+  - title: Evaluar
+    detail: Se leen los resultados y se compara la memoria estimada con el pico observado, que corrige estimaciones futuras.
+  - title: Replantear
+    detail: Ante un fallo o un rechazo, la decisión queda registrada y el agente prueba una alternativa.
+domains:
+  - intelligent
+  - computational
+  - biological
+---
+
+## Qué es
+
+GenomeAgent busca la mejor estrategia de ensamblaje que sea científicamente defendible **y** que quepa en la máquina donde corre. Un modelo de lenguaje, a través de Pi Coding Agent, razona y decide; un harness en Python es la autoridad sobre recursos, políticas, estado, validación y procedencia.
+
+## Decisión de diseño
+
+El modelo solo ve operaciones tipadas del harness: no tiene shell, no escribe comandos y no elige dónde se guardan los resultados. Cada llamada, decisión y comando queda registrado. Las verificaciones críticas para la ciencia no dependen del criterio del modelo.
+
+## Lo que mostró con datos reales
+
+En un benchmark de decisiones con lecturas HiFi de papa criolla, la verificación del origen de las lecturas detectó que una de las celdas no correspondía al organismo declarado. El mismo benchmark mostró que un modelo con la herramienta adecuada puede decidir no usarla; por eso ahora el harness exige esa verificación antes de ensamblar, sin importar lo que decida el modelo.
+
+## Estado
+
+En desarrollo activo, en Linux. Las fases, los hallazgos y sus limitaciones están en la hoja de ruta del repositorio.

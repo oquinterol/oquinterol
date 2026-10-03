@@ -160,7 +160,11 @@ export const ui = {
 		research: {
 			label: 'Investigación',
 			intro: 'Preguntas biológicas, métodos computacionales y fuentes para profundizar.',
-			kinds: { 'masters-thesis': 'Tesis de maestría', 'bachelors-thesis': 'Tesis de pregrado' },
+			kinds: {
+				'masters-thesis': 'Tesis de maestría',
+				'bachelors-thesis': 'Tesis de pregrado',
+				'research-software': 'Software de investigación'
+			},
 			advisor: 'Dirección',
 			licence: 'Licencia',
 			otherRecords: 'Otros registros',
@@ -170,6 +174,7 @@ export const ui = {
 			methodIntro:
 				'El resumen institucional documenta un flujo de secuenciación, ensamblaje, evaluación, anotación y reconstrucción metabólica.',
 			schematicNote: 'Esquema ilustrativo: no representa datos de la tesis.',
+			loopNote: 'Ciclo documentado en el repositorio; cada paso pasa por el harness.',
 			playTour: 'Recorrer etapas',
 			stopTour: 'Detener recorrido',
 			context: 'Contexto',
@@ -178,6 +183,9 @@ export const ui = {
 			provenanceText:
 				'El alcance y los métodos se resumen a partir de la tesis depositada en el repositorio institucional. Este sitio no presenta resultados nuevos ni reemplaza la fuente primaria.',
 			readSource: 'Consultar la tesis en el repositorio institucional',
+			readCode: 'Ver el código y la documentación en GitHub',
+			softwareProvenance:
+				'Resumen basado en la documentación pública del repositorio. Los hallazgos citados están registrados allí con sus datos y limitaciones.',
 			back: 'Volver a investigación',
 			detail: 'Ver el caso de investigación'
 		},
@@ -334,7 +342,11 @@ export const ui = {
 		research: {
 			label: 'Research',
 			intro: 'Biological questions, computational methods, and sources for further reading.',
-			kinds: { 'masters-thesis': 'Master’s thesis', 'bachelors-thesis': 'Undergraduate thesis' },
+			kinds: {
+				'masters-thesis': 'Master’s thesis',
+				'bachelors-thesis': 'Undergraduate thesis',
+				'research-software': 'Research software'
+			},
 			advisor: 'Advisor',
 			licence: 'Licence',
 			otherRecords: 'Other records',
@@ -344,6 +356,7 @@ export const ui = {
 			methodIntro:
 				'The institutional abstract documents a workflow from sequencing and assembly through quality evaluation, annotation, and metabolic reconstruction.',
 			schematicNote: 'Illustrative schematic: it does not show thesis data.',
+			loopNote: 'Loop documented in the repository; every step goes through the harness.',
 			playTour: 'Walk through stages',
 			stopTour: 'Stop walkthrough',
 			context: 'Context',
@@ -352,6 +365,9 @@ export const ui = {
 			provenanceText:
 				'This English summary is based on the Spanish-language thesis in the institutional repository. This site does not report new results or replace the primary source.',
 			readSource: 'View the Spanish-language thesis in the institutional repository',
+			readCode: 'View the code and documentation on GitHub',
+			softwareProvenance:
+				'Summary based on the public documentation in the repository. The findings cited are recorded there with their data and limitations.',
 			back: 'Back to research',
 			detail: 'Read the research case'
 		},
