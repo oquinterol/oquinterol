@@ -1,0 +1,53 @@
+---
+id: genome-agent
+locale: en
+title: 'GenomeAgent: an autonomous agent that assembles genomes within the limits of its machine'
+summary: A scientific agent that plans, runs, evaluates, and replans genome assemblies, with a language model that reasons and a harness that has the final say.
+sourceUrl: https://github.com/oquinterol/Agentic-Bioinformatician
+kind: research-software
+year: 2026
+license:
+  name: MIT
+  url: https://github.com/oquinterol/Agentic-Bioinformatician/blob/master/LICENSE
+links:
+  - label: Architecture
+    url: https://github.com/oquinterol/Agentic-Bioinformatician/blob/master/docs/ARCHITECTURE.md
+  - label: Roadmap and findings
+    url: https://github.com/oquinterol/Agentic-Bioinformatician/blob/master/docs/ROADMAP.md
+schematic: agent-loop
+methodLabel: Agent loop
+methodIntro: Every step goes through the harness, which checks resources, permissions, and provenance before moving on.
+steps:
+  - title: Observe
+    detail: The harness inventories the machine (CPU, RAM, disk) and the project state. The model reads it; it never writes it.
+  - title: Plan
+    detail: The model picks a tool and parameters among typed operations. It has no shell and writes no commands.
+  - title: Estimate
+    detail: Each adapter estimates the memory and threads it will need; the harness rejects anything that does not fit the budget.
+  - title: Execute
+    detail: The harness launches the job without a shell, writing only inside the project, under kernel limits where available.
+  - title: Evaluate
+    detail: Results are parsed and the estimated memory is compared with the observed peak, which corrects future estimates.
+  - title: Replan
+    detail: After a failure or a rejection, the decision is recorded and the agent tries an alternative.
+domains:
+  - intelligent
+  - computational
+  - biological
+---
+
+## What it is
+
+GenomeAgent looks for the best assembly strategy that is scientifically defensible **and** fits the machine it runs on. A language model, through Pi Coding Agent, reasons and decides; a Python harness is the authority on resources, policy, state, validation, and provenance.
+
+## Design decision
+
+The model only sees typed harness operations: it has no shell, writes no commands, and does not choose where results go. Every call, decision, and command is recorded. Checks that matter for the science do not depend on the model's judgement.
+
+## What real data showed
+
+In a decision benchmark with HiFi reads of Andean potato, the read-origin check found that one of the cells did not come from the declared organism. The same benchmark showed that a model holding the right tool may still decide not to use it; the harness now requires that check before assembling, whatever the model decides.
+
+## Status
+
+Under active development, on Linux. Phases, findings, and their limitations are in the repository roadmap.

@@ -43,8 +43,8 @@ const research = defineCollection({
 		title: z.string().min(1),
 		summary: z.string().min(40),
 		sourceUrl: z.url(),
-		kind: z.enum(['masters-thesis', 'bachelors-thesis']),
-		institution: z.string().min(1),
+		kind: z.enum(['masters-thesis', 'bachelors-thesis', 'research-software']),
+		institution: z.string().min(1).optional(),
 		year: z.number().int().optional(),
 		advisor: z.string().optional(),
 		license: z.object({ name: z.string(), url: z.url() }).optional(),
@@ -52,6 +52,11 @@ const research = defineCollection({
 		links: z.array(z.object({ label: z.string(), url: z.url() })).default([]),
 		// Method stages documented in the source; omitted when the source does not list them.
 		steps: z.array(z.object({ title: z.string(), detail: z.string() })).optional(),
+		// How the steps are drawn: a linear genome pipeline or a closed agent loop.
+		schematic: z.enum(['genome', 'agent-loop']).default('genome'),
+		// Heading for the steps section; defaults to the thesis wording.
+		methodLabel: z.string().optional(),
+		methodIntro: z.string().optional(),
 		domains: z.array(z.enum(['biological', 'intelligent', 'computational', 'physical'])).min(1),
 		draft: z.boolean().default(false)
 	})

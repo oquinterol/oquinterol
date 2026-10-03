@@ -943,6 +943,7 @@
 	--ve-theme-map-ink: var(--bp-sterile);
 	--ve-theme-map-muted: var(--bp-boundary);
 	--ve-theme-map-cut: var(--bp-pink);
+	--ve-theme-map-selection: rgb(164 230 109 / 0.16);
 }
 /* Map as a specimen under the microscope: reticle grid, vignette, glowing arcs. */
 .new-site .ve-map {
@@ -1582,6 +1583,53 @@
 	.ln-list {
 		grid-template-columns: 1fr;
 	}
+}
+/* Agent loop schematic (research software). */
+.pl-loop-ring {
+	fill: none;
+	stroke: var(--bp-tissue);
+	stroke-width: 2;
+	stroke-dasharray: 3 6;
+}
+.pl-loop-core {
+	fill: var(--bp-muted);
+	font-family: var(--mono);
+	font-size: 14px;
+	text-anchor: middle;
+}
+.pl-loop-core.is-small {
+	font-size: 10px;
+}
+.pl-loop-node circle {
+	fill: var(--bp-membrane);
+	stroke: var(--bp-boundary);
+	stroke-width: 2;
+	transition:
+		stroke var(--motion-normal) ease-out,
+		fill var(--motion-normal) ease-out;
+}
+.pl-loop-node text {
+	fill: var(--bp-bone);
+	font-family: var(--mono);
+	font-size: 11px;
+	text-anchor: middle;
+}
+.pl-loop-node[data-active='true'] circle {
+	fill: rgb(199 125 255 / 0.2);
+	stroke: var(--bp-violet);
+}
+.pl-loop-node[data-next='true'] circle {
+	stroke: var(--bp-violet);
+	stroke-dasharray: 3 3;
+}
+.pl-loop-pulse {
+	fill: var(--bp-violet);
+}
+[data-motion='full'] .pl-loop-pulse {
+	animation: pl-flux 1.6s ease-in-out infinite;
+}
+[data-motion='reduced'] .pl-loop-pulse {
+	display: none;
 }
 .article-body {
 	max-width: 72ch;

@@ -4,6 +4,7 @@ import { useReducedMotion } from './useReducedMotion'
 type Step = { title: string; detail: string }
 
 interface Props {
+	schematic?: 'genome' | 'agent-loop'
 	steps: readonly Step[]
 	label: string
 	schematicNote: string
@@ -128,7 +129,52 @@ function GenomeSchematic({ stage }: { stage: number }) {
 	)
 }
 
+// A closed loop: the agent always returns to observing after it replans.
+function LoopSchematic({ steps, stage }: { steps: readonly Step[]; stage: number }) {
+	const cx = 300
+	const cy = 110
+	const r = 82
+	const points = steps.map((_, i) => {
+		const angle = (i / steps.length) * Math.PI * 2 - Math.PI / 2
+		return { x: cx + Math.cos(angle) * r * 2.1, y: cy + Math.sin(angle) * r }
+	})
+	const next = (stage + 1) % steps.length
+	const from = points[stage]!
+	const to = points[next]!
+	return (
+		<svg viewBox='0 0 600 220' aria-hidden='true' focusable='false' className='pl-loop'>
+			<ellipse className='pl-loop-ring' cx={cx} cy={cy} rx={r * 2.1} ry={r} />
+			<text className='pl-loop-core' x={cx} y={cy - 4}>
+				harness
+			</text>
+			<text className='pl-loop-core is-small' x={cx} y={cy + 14}>
+				policy · state · provenance
+			</text>
+			{points.map((p, i) => (
+				<g key={i} className='pl-loop-node' data-active={i === stage} data-next={i === next}>
+					<circle cx={p.x} cy={p.y} r='15' />
+					<text x={p.x} y={p.y + 4}>
+						{String(i + 1).padStart(2, '0')}
+					</text>
+				</g>
+			))}
+			<circle
+				key={stage}
+				className='pl-flux pl-loop-pulse'
+				r='5'
+				cx={from.x}
+				cy={from.y}
+				style={{
+					['--dx' as string]: `${to.x - from.x}px`,
+					['--dy' as string]: `${to.y - from.y}px`
+				}}
+			/>
+		</svg>
+	)
+}
+
 export default function PipelineExplorer({
+	schematic = 'genome',
 	steps,
 	label,
 	schematicNote,
@@ -185,7 +231,11 @@ export default function PipelineExplorer({
 				})}
 			</ol>
 			<figure className='pipeline-figure'>
-				<GenomeSchematic stage={active} />
+				{schematic === 'agent-loop' ? (
+					<LoopSchematic steps={steps} stage={active} />
+				) : (
+					<GenomeSchematic stage={active} />
+				)}
 				<figcaption>
 					<span>{schematicNote}</span>
 					{hydrated && (
