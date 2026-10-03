@@ -92,7 +92,9 @@ export const ui = {
 				detail:
 					'Te avisa si una enzima corta dentro de tu gen, si los extremos no ligan o si el vector puede cerrarse sobre sí mismo. Todo corre en tu navegador: tus secuencias no salen de tu equipo.',
 				noscript: 'Esta herramienta necesita JavaScript: todo el cálculo ocurre en tu navegador.',
-				repository: 'https://github.com/oquinterol/vector-editor'
+				repository: 'https://github.com/oquinterol/vector-editor',
+				app: 'https://vector-editor.oquinterol.com/',
+				openApp: 'Abrir a pantalla completa'
 			}
 		},
 		lab: {
@@ -278,7 +280,9 @@ export const ui = {
 				detail:
 					'It warns you when an enzyme cuts inside your gene, when ends will not ligate, or when the vector can close on itself. Everything runs in your browser: your sequences never leave your machine.',
 				noscript: 'This tool needs JavaScript: all computation happens in your browser.',
-				repository: 'https://github.com/oquinterol/vector-editor'
+				repository: 'https://github.com/oquinterol/vector-editor',
+				app: 'https://vector-editor.oquinterol.com/',
+				openApp: 'Open full screen'
 			}
 		},
 		lab: {

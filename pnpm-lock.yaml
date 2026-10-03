@@ -27,8 +27,8 @@ importers:
         specifier: ^3.7.2
         version: 3.7.2
       '@oquinterol/vector-editor':
-        specifier: https://github.com/oquinterol/vector-editor/releases/download/v0.2.1/oquinterol-vector-editor-0.2.1.tgz
-        version: https://github.com/oquinterol/vector-editor/releases/download/v0.2.1/oquinterol-vector-editor-0.2.1.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
+        specifier: https://github.com/oquinterol/vector-editor/releases/download/v0.3.1/oquinterol-vector-editor-0.3.1.tgz
+        version: https://github.com/oquinterol/vector-editor/releases/download/v0.3.1/oquinterol-vector-editor-0.3.1.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       astro:
         specifier: ^6.3.7
         version: 6.3.7(@types/node@24.12.4)(jiti@1.21.7)(lightningcss@1.33.0)(rollup@4.60.4)(yaml@2.9.0)
@@ -714,9 +714,9 @@ packages:
     resolution: {integrity: sha512-oGB+UxlgWcgQkgwo8GcEGwemoTFt3FIO9ababBmaGwXIoBKZ+GTy0pP185beGg7Llih/NSHSV2XAs1lnznocSg==}
     engines: {node: '>= 8'}
 
-  '@oquinterol/vector-editor@https://github.com/oquinterol/vector-editor/releases/download/v0.2.1/oquinterol-vector-editor-0.2.1.tgz':
-    resolution: {integrity: sha512-nmdlaG7bREUtThc3DXiUCZtVGaD98onfrcHH6gKU11f7jvzTZYwsk5gie+6Rsqn6QQ4wmBjvYmG0L0yNO3UAaA==, tarball: https://github.com/oquinterol/vector-editor/releases/download/v0.2.1/oquinterol-vector-editor-0.2.1.tgz}
-    version: 0.2.1
+  '@oquinterol/vector-editor@https://github.com/oquinterol/vector-editor/releases/download/v0.3.1/oquinterol-vector-editor-0.3.1.tgz':
+    resolution: {integrity: sha512-PxmxsG3RYS51/U1893lKf8uQCWwJw2onwIylLd+uo2PfbvvXbTcmI+zzFlxDKA1GIyyMJJTCsN1FN7xXOdWcww==, tarball: https://github.com/oquinterol/vector-editor/releases/download/v0.3.1/oquinterol-vector-editor-0.3.1.tgz}
+    version: 0.3.1
     peerDependencies:
       react: ^18.0.0 || ^19.0.0
       react-dom: ^18.0.0 || ^19.0.0
@@ -4385,7 +4385,7 @@ snapshots:
       '@nodelib/fs.scandir': 2.1.5
       fastq: 1.20.1
 
-  '@oquinterol/vector-editor@https://github.com/oquinterol/vector-editor/releases/download/v0.2.1/oquinterol-vector-editor-0.2.1.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
+  '@oquinterol/vector-editor@https://github.com/oquinterol/vector-editor/releases/download/v0.3.1/oquinterol-vector-editor-0.3.1.tgz(react-dom@19.3.0(react@19.3.0))(react@19.3.0)':
     dependencies:
       react: 19.3.0
       react-dom: 19.3.0(react@19.3.0)

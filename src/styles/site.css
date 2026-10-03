@@ -932,6 +932,8 @@
 .new-site .ve {
 	--ve-theme-bg: var(--bp-ink);
 	--ve-theme-surface: var(--paper);
+	--ve-theme-raised: var(--bp-membrane);
+	--ve-theme-accent-ink: var(--bp-ink);
 	--ve-theme-ink: var(--bp-sterile);
 	--ve-theme-muted: var(--bp-muted);
 	--ve-theme-line: var(--bp-tissue);
@@ -986,6 +988,11 @@
 }
 .tool-page .page-heading {
 	padding-bottom: 2rem;
+}
+.tool-links {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.5rem 1.5rem;
 }
 .tool-detail {
 	max-width: 62ch;

@@ -24,10 +24,16 @@ const copy = ui[locale].tools
 			<h1>{copy.vectorEditor.title}</h1>
 			<p class='lead'>{copy.vectorEditor.lead}</p>
 			<p class='tool-detail'>{copy.vectorEditor.detail}</p>
-			<a class='text-link' href={copy.vectorEditor.repository}>
-				{copy.code}
-				<span aria-hidden='true'>↗</span>
-			</a>
+			<div class='tool-links'>
+				<a class='text-link' href={copy.vectorEditor.app}>
+					{copy.vectorEditor.openApp}
+					<span aria-hidden='true'>↗</span>
+				</a>
+				<a class='text-link secondary-link' href={copy.vectorEditor.repository}>
+					{copy.code}
+					<span aria-hidden='true'>↗</span>
+				</a>
+			</div>
 		</div>
 		<VectorEditorIsland locale={locale} client:only='react'>
 			<p slot='fallback' class='lead'>{copy.vectorEditor.noscript}</p>
