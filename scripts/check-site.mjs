@@ -13,6 +13,8 @@ const expected = [
 	'es/research/phureja-genome/index.html',
 	'es/lab/index.html',
 	'en/lab/index.html',
+	'es/research/phureja-rnaseq-pipeline/index.html',
+	'en/research/phureja-rnaseq-pipeline/index.html',
 	'blog/index.html',
 	'tags/index.html',
 	'404.html',
@@ -44,6 +46,7 @@ const pairs = [
 	['/es/cv/', '/en/cv/'],
 	['/es/research/', '/en/research/'],
 	['/es/lab/', '/en/lab/'],
+	['/es/research/phureja-rnaseq-pipeline/', '/en/research/phureja-rnaseq-pipeline/'],
 	...(englishArticle ? [articlePair] : [])
 ]
 
@@ -69,6 +72,8 @@ const allPages = [
 	...(englishArticle ? ['en/research/phureja-genome/index.html'] : []),
 	'es/lab/index.html',
 	'en/lab/index.html',
+	'es/research/phureja-rnaseq-pipeline/index.html',
+	'en/research/phureja-rnaseq-pipeline/index.html',
 	'blog/index.html',
 	'tags/index.html',
 	'404.html'
@@ -152,6 +157,12 @@ for (const locale of ['es', 'en']) {
 	assert.match(read(`${locale}/lab/index.html`), /aria-current="step"/)
 }
 assert.match(read('es/research/phureja-genome/index.html'), /repositorio\.unal\.edu\.co/)
+for (const locale of ['es', 'en']) {
+	assert.match(
+		read(`${locale}/research/phureja-rnaseq-pipeline/index.html`),
+		/repository\.udistrital\.edu\.co/
+	)
+}
 if (englishArticle) {
 	assert.match(read('en/research/phureja-genome/index.html'), /repositorio\.unal\.edu\.co/)
 } else {

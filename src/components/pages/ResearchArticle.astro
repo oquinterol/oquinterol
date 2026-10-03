@@ -11,7 +11,20 @@ interface Props {
 	entry: ResearchEntry
 }
 const { entry } = Astro.props
-const { locale, id, title, summary, sourceUrl } = entry.data
+const {
+	locale,
+	id,
+	title,
+	summary,
+	sourceUrl,
+	kind,
+	institution,
+	year,
+	advisor,
+	license,
+	links,
+	steps
+} = entry.data
 const availableLocales = researchLocales(await getPublishedResearch(), id)
 const copy = ui[locale].research
 const { Content } = await render(entry)
@@ -28,26 +41,68 @@ const { Content } = await render(entry)
 	<article class='site-container page-content research-article'>
 		<a class='text-link back-link' href={localizedPath(locale, 'research')}>← {copy.back}</a>
 		<header class='page-heading'>
-			<p class='eyebrow'>{copy.thesis}</p>
+			<p class='eyebrow'>
+				{copy.kinds[kind]} · {institution}
+				{year && ` · ${year}`}
+			</p>
 			<h1>{title}</h1>
 			<p class='lead'>{summary}</p>
 		</header>
-		<section class='pipeline-section' aria-labelledby='pipeline-title'>
-			<p class='eyebrow'>{copy.method}</p>
-			<h2 id='pipeline-title'>{copy.methodIntro}</h2>
-			<PipelineExplorer
-				steps={copy.steps.map((title, index) => ({ title, detail: copy.stepDetails[index] ?? '' }))}
-				label={copy.method}
-				schematicNote={copy.schematicNote}
-				playLabel={copy.playTour}
-				stopLabel={copy.stopTour}
-				client:visible
-			/>
-		</section>
+		{
+			steps && (
+				<section class='pipeline-section' aria-labelledby='pipeline-title'>
+					<p class='eyebrow'>{copy.method}</p>
+					<h2 id='pipeline-title'>{copy.methodIntro}</h2>
+					<PipelineExplorer
+						steps={steps}
+						label={copy.method}
+						schematicNote={copy.schematicNote}
+						playLabel={copy.playTour}
+						stopLabel={copy.stopTour}
+						client:visible
+					/>
+				</section>
+			)
+		}
 		<div class='article-body'><Content /></div>
 		<aside class='source-note'>
 			<h2>{copy.provenance}</h2>
 			<p>{copy.provenanceText}</p>
+			<dl class='source-facts'>
+				{
+					advisor && (
+						<div>
+							<dt>{copy.advisor}</dt>
+							<dd>{advisor}</dd>
+						</div>
+					)
+				}
+				{
+					license && (
+						<div>
+							<dt>{copy.licence}</dt>
+							<dd>
+								<a href={license.url}>{license.name}</a>
+							</dd>
+						</div>
+					)
+				}
+				{
+					links.length > 0 && (
+						<div>
+							<dt>{copy.otherRecords}</dt>
+							<dd>
+								{links.map((link, index) => (
+									<>
+										{index > 0 && ' · '}
+										<a href={link.url}>{link.label}</a>
+									</>
+								))}
+							</dd>
+						</div>
+					)
+				}
+			</dl>
 			<a class='text-link' href={sourceUrl}>{copy.readSource} <span aria-hidden='true'>↗</span></a>
 		</aside>
 	</article>

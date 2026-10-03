@@ -449,6 +449,13 @@
 	margin: 0.2rem 0 0;
 	color: var(--ink-soft);
 }
+.new-site .cv-thesis {
+	display: inline-flex;
+	align-items: center;
+	min-height: 2.75rem;
+	color: var(--bp-cyan);
+	font-size: 0.9rem;
+}
 .cv-links {
 	margin: 0 0 0 auto;
 	max-width: 56rem;
@@ -1540,6 +1547,25 @@
 .source-note h2 {
 	font-size: 1.25rem;
 	font-weight: 650;
+}
+.source-facts {
+	display: grid;
+	gap: 0.6rem;
+	margin: 1rem 0;
+}
+.source-facts dt {
+	color: var(--bp-muted);
+	font-family: var(--mono);
+	font-size: 0.72rem;
+	text-transform: uppercase;
+	letter-spacing: 0.06em;
+}
+.source-facts dd {
+	margin: 0;
+	color: var(--ink-soft);
+}
+.new-site .source-facts a {
+	color: var(--bp-cyan);
 }
 .source-note p {
 	color: var(--ink-soft);

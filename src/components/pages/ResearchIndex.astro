@@ -32,7 +32,9 @@ const otherAvailable = allEntries.some((entry) => entry.data.locale === otherLoc
 					{entries.map((entry) => (
 						<li>
 							<article>
-								<p class='eyebrow'>{copy.thesis}</p>
+								<p class='eyebrow'>
+									{copy.kinds[entry.data.kind]} · {entry.data.institution}
+								</p>
 								<h2>
 									<a href={localizedPath(locale, 'research-detail', entry.data.id)}>
 										{entry.data.title}

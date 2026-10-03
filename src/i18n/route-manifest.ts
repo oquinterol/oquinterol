@@ -5,5 +5,6 @@ export const translatedRoutes = [
 	['/es/cv/', '/en/cv/'],
 	['/es/research/', '/en/research/'],
 	['/es/lab/', '/en/lab/'],
-	['/es/research/phureja-genome/', '/en/research/phureja-genome/']
+	['/es/research/phureja-genome/', '/en/research/phureja-genome/'],
+	['/es/research/phureja-rnaseq-pipeline/', '/en/research/phureja-rnaseq-pipeline/']
 ] as const

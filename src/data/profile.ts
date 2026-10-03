@@ -22,13 +22,17 @@ export const education = [
 		id: 'bioinformatics',
 		es: 'Maestría en Bioinformática',
 		en: 'M.Sc. in Bioinformatics',
-		institution: 'Universidad Nacional de Colombia'
+		institution: 'Universidad Nacional de Colombia',
+		thesis: 'phureja-genome',
+		thesisKind: 'masters-thesis'
 	},
 	{
 		id: 'biology',
 		es: 'Licenciatura en Biología',
 		en: 'Degree in Biology Education',
-		institution: 'Universidad Distrital Francisco José de Caldas'
+		institution: 'Universidad Distrital Francisco José de Caldas',
+		thesis: 'phureja-rnaseq-pipeline',
+		thesisKind: 'bachelors-thesis'
 	}
 ] as const
 

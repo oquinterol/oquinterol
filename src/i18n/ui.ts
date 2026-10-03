@@ -139,19 +139,15 @@ export const ui = {
 		research: {
 			label: 'Investigación',
 			intro: 'Preguntas biológicas, métodos computacionales y fuentes para profundizar.',
-			thesis: 'Tesis de maestría',
+			kinds: { 'masters-thesis': 'Tesis de maestría', 'bachelors-thesis': 'Tesis de pregrado' },
+			advisor: 'Dirección',
+			licence: 'Licencia',
+			otherRecords: 'Otros registros',
 			noEntries: 'Todavía no hay investigaciones publicadas en este idioma.',
 			otherLanguage: 'Ver investigaciones en inglés',
 			method: 'Del dato a la interpretación',
 			methodIntro:
 				'El resumen institucional documenta un flujo de secuenciación, ensamblaje, evaluación, anotación y reconstrucción metabólica.',
-			steps: ['PacBio HiFi', 'Ensamblaje y evaluación', 'Anotación', 'Reconstrucción metabólica'],
-			stepDetails: [
-				'Lecturas largas y de alta precisión: el material de partida del ensamblaje.',
-				'Las lecturas que se solapan se unen en secuencias continuas; el ensamblaje se corrige, se andamia y se evalúa su calidad.',
-				'Sobre la secuencia ensamblada se predicen los genes y se les asigna una función.',
-				'Los genes anotados se traducen en reacciones que forman un modelo metabólico a escala genómica.'
-			],
 			schematicNote: 'Esquema ilustrativo: no representa datos de la tesis.',
 			playTour: 'Recorrer etapas',
 			stopTour: 'Detener recorrido',
@@ -160,7 +156,7 @@ export const ui = {
 			provenance: 'Fuente y alcance',
 			provenanceText:
 				'El alcance y los métodos se resumen a partir de la tesis depositada en el repositorio institucional. Este sitio no presenta resultados nuevos ni reemplaza la fuente primaria.',
-			readSource: 'Consultar la tesis en la UNAL',
+			readSource: 'Consultar la tesis en el repositorio institucional',
 			back: 'Volver a investigación',
 			detail: 'Ver el caso de investigación'
 		},
@@ -303,19 +299,15 @@ export const ui = {
 		research: {
 			label: 'Research',
 			intro: 'Biological questions, computational methods, and sources for further reading.',
-			thesis: 'Master’s thesis',
+			kinds: { 'masters-thesis': 'Master’s thesis', 'bachelors-thesis': 'Undergraduate thesis' },
+			advisor: 'Advisor',
+			licence: 'Licence',
+			otherRecords: 'Other records',
 			noEntries: 'No research entries have been published in this language yet.',
 			otherLanguage: 'Browse research in Spanish',
 			method: 'From data to interpretation',
 			methodIntro:
 				'The institutional abstract documents a workflow from sequencing and assembly through quality evaluation, annotation, and metabolic reconstruction.',
-			steps: ['PacBio HiFi', 'Assembly and assessment', 'Annotation', 'Metabolic reconstruction'],
-			stepDetails: [
-				'Long, high-accuracy reads: the raw material for the assembly.',
-				'Overlapping reads are joined into continuous sequences; the assembly is corrected, scaffolded, and assessed for quality.',
-				'Genes are predicted along the assembled sequence and assigned a function.',
-				'Annotated genes are translated into reactions that make up a genome-scale metabolic model.'
-			],
 			schematicNote: 'Illustrative schematic: it does not show thesis data.',
 			playTour: 'Walk through stages',
 			stopTour: 'Stop walkthrough',
@@ -324,7 +316,7 @@ export const ui = {
 			provenance: 'Source and scope',
 			provenanceText:
 				'This English summary is based on the Spanish-language thesis in the institutional repository. This site does not report new results or replace the primary source.',
-			readSource: 'View the Spanish-language thesis at UNAL',
+			readSource: 'View the Spanish-language thesis in the institutional repository',
 			back: 'Back to research',
 			detail: 'Read the research case'
 		},

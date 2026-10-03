@@ -2,6 +2,7 @@
 import LocalizedLayout from '@/layouts/LocalizedLayout.astro'
 import SkillsPanel from '@/components/pages/SkillsPanel.astro'
 import { education, profile } from '@/data/profile'
+import { localizedPath } from '@/i18n/routing'
 import { ui, type Locale } from '@/i18n/ui'
 
 interface Props {
@@ -44,6 +45,9 @@ const otherLocale = locale === 'es' ? 'en' : 'es'
 							<>
 								<h3>{degree[locale]}</h3>
 								<p>{degree.institution}</p>
+								<a class='cv-thesis' href={localizedPath(locale, 'research-detail', degree.thesis)}>
+									{ui[locale].research.kinds[degree.thesisKind]} <span aria-hidden='true'>→</span>
+								</a>
 							</>
 						</li>
 					))
