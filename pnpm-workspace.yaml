@@ -6,3 +6,7 @@ onlyBuiltDependencies:
   - sharp
 overrides:
   yaml: ^2.8.3
+# Own package installed from its GitHub release tarball; it is not on the npm
+# registry, so its release age cannot be checked there.
+minimumReleaseAgeExclude:
+  - '@oquinterol/vector-editor'
