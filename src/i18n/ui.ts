@@ -209,7 +209,7 @@ export const ui = {
 			label: 'Computational biology · Research · Systems',
 			headline: 'I build systems to understand systems.',
 			intro:
-				'I work at the intersection of biology, bioinformatics, and computing: from genomic data to the tools that make it possible to interpret them.',
+				'I am a biologist and bioinformatician working at the intersection of biology and computing: from genomic data to the tools that make it possible to interpret them.',
 			systemsTitle: 'Four perspectives, one connected problem',
 			systemsIntro:
 				'Scientific work connects organisms, measurements, software, and decisions. These are not isolated disciplines.',
@@ -349,7 +349,7 @@ export const ui = {
 			links: 'Professional links',
 			download: 'Download English CV (PDF)',
 			contact: 'Email',
-			bio: 'A bioinformatician with a background in biology. My work brings together genomics, computational analysis, and systems biology.'
+			bio: 'Biologist and bioinformatician. My work brings together genomics, computational analysis, and systems biology.'
 		},
 		research: {
 			label: 'Research',

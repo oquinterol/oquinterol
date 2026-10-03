@@ -29,7 +29,7 @@ export const education = [
 	{
 		id: 'biology',
 		es: 'Licenciatura en Biología',
-		en: 'Degree in Biology Education',
+		en: 'Degree in Biology',
 		institution: 'Universidad Distrital Francisco José de Caldas',
 		thesis: 'phureja-rnaseq-pipeline',
 		thesisKind: 'bachelors-thesis'
