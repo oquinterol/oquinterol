@@ -8,6 +8,7 @@
 		"start": "astro dev",
 		"build": "astro check && astro build",
 		"preview": "astro preview",
+		"verify:site": "node scripts/check-site.mjs",
 		"astro": "astro",
 		"format": "prettier --write \"**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}\"",
 		"format:check": "prettier --check \"**/*.{js,jsx,ts,tsx,md,mdx,svelte,astro}\"",
@@ -17,6 +18,7 @@
 	"dependencies": {
 		"@astrojs/check": "^0.9.9",
 		"@astrojs/mdx": "^5.0.6",
+		"@astrojs/react": "^6.0.6",
 		"@astrojs/rss": "^4.0.18",
 		"@astrojs/sitemap": "^3.7.2",
 		"astro": "^6.3.7",
@@ -24,6 +26,8 @@
 		"autoprefixer": "^10.4.23",
 		"clsx": "^2.1.1",
 		"mdast-util-to-string": "^4.0.0",
+		"react": "^19.3.0",
+		"react-dom": "^19.3.0",
 		"reading-time": "^1.5.0",
 		"rehype-external-links": "^3.0.0",
 		"remark-unwrap-images": "^4.0.1",
@@ -35,6 +39,8 @@
 	"devDependencies": {
 		"@tailwindcss/aspect-ratio": "^0.4.2",
 		"@tailwindcss/typography": "^0.5.19",
+		"@types/react": "^19.3.0",
+		"@types/react-dom": "^19.3.0",
 		"@typescript-eslint/parser": "^8.59.4",
 		"eslint": "^8.57.1",
 		"eslint-plugin-astro": "^1.7.0",
