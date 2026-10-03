@@ -124,6 +124,22 @@ const track = ['idea', 'prototype', 'experimental', 'active', 'completed'] as co
 											</dd>
 										</div>
 									</dl>
+									{data.basedOn.length > 0 && (
+										<div class='lab-based-on'>
+											<p class='eyebrow'>{copy.basedOn}</p>
+											<ul>
+												{data.basedOn.map((item) => (
+													<li>
+														<a href={item.url}>
+															{item.name} <span aria-hidden='true'>↗</span>
+														</a>
+														{item.license && <span class='lab-licence-tag'>{item.license}</span>}
+														{item.use && <span> — {item.use}</span>}
+													</li>
+												))}
+											</ul>
+										</div>
+									)}
 									<div class='lab-body'>
 										<Content />
 									</div>
@@ -141,6 +157,7 @@ const track = ['idea', 'prototype', 'experimental', 'active', 'completed'] as co
 				<div>
 					<h2 id='open-title'>{copy.openTitle}</h2>
 					<p>{copy.openIntro}</p>
+					<p>{copy.reuse}</p>
 					<a class='text-link' href='https://github.com/oquinterol/lab'>
 						{copy.openRepo}
 						<span aria-hidden='true'>↗</span>

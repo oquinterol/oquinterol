@@ -100,6 +100,10 @@ export const ui = {
 			viewLab: 'Ver el laboratorio',
 			repository: 'Repositorio',
 			noRepository: 'Aún sin repositorio público',
+			basedOn: 'Se apoya en',
+			reuse:
+				'No se trata de reinventar la rueda: cuando un proyecto abierto existente sirve, se integra con crédito a sus autores y respetando su licencia.',
+			reuseGuide: 'Cómo se reutilizan otros proyectos',
 			openTitle: 'Ciencia abierta',
 			openIntro:
 				'Todo el laboratorio es público: diseños de hardware, firmware, documentación y datos, desde la idea. Cualquiera puede revisarlo, reproducirlo y mejorarlo.',
@@ -260,6 +264,10 @@ export const ui = {
 			viewLab: 'Visit the lab',
 			repository: 'Repository',
 			noRepository: 'No public repository yet',
+			basedOn: 'Builds on',
+			reuse:
+				'No reinventing the wheel: when an existing open project fits, it is integrated with credit to its authors and within its licence.',
+			reuseGuide: 'How other projects are reused',
 			openTitle: 'Open science',
 			openIntro:
 				'The whole lab is public — hardware designs, firmware, documentation, and data — from the idea stage onward. Anyone can review, reproduce, and improve it.',

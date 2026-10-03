@@ -72,6 +72,17 @@ const lab = defineCollection({
 		controller: z.string().optional(),
 		// Public folder in github.com/oquinterol/lab (open hardware + open software).
 		repository: z.url().optional(),
+		// Existing open projects this one reuses, credited on the site and in the lab repo.
+		basedOn: z
+			.array(
+				z.object({
+					name: z.string().min(1),
+					url: z.url(),
+					license: z.string().optional(),
+					use: z.string().optional()
+				})
+			)
+			.default([]),
 		measures: z.array(z.string()).default([]),
 		actions: z.array(z.string()).default([]),
 		domains: z.array(z.enum(['biological', 'intelligent', 'computational', 'physical'])).min(1),

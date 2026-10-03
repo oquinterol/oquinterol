@@ -1390,6 +1390,33 @@
 .new-site .lab-facts a {
 	color: var(--bp-cyan);
 }
+/* Lab page: credited upstream projects. */
+.lab-based-on {
+	margin: 0 0 1rem;
+}
+.lab-based-on ul {
+	margin: 0.4rem 0 0;
+	padding: 0;
+	list-style: none;
+}
+.lab-based-on li {
+	padding: 0.3rem 0;
+	color: var(--ink-soft);
+}
+.new-site .lab-based-on a {
+	color: var(--bp-cyan);
+}
+.lab-licence-tag {
+	margin-left: 0.5rem;
+	padding: 0.05rem 0.4rem;
+	border: 1px solid var(--line);
+	border-radius: 4px;
+	font-family: var(--mono);
+	font-size: 0.7rem;
+}
+.section-heading .text-link + .text-link {
+	margin-left: 1.5rem;
+}
 /* Lab page project cards with a status track. */
 .lab-projects {
 	display: grid;
