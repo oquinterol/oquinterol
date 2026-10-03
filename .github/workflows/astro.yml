@@ -52,6 +52,9 @@ jobs:
       - name: Build with Astro
         run: pnpm exec astro build --site "${{ steps.pages.outputs.origin }}" --base "${{ steps.pages.outputs.base_path }}"
 
+      - name: Verify generated routes and locale metadata
+        run: pnpm run verify:site
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:

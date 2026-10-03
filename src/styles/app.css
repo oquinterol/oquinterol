@@ -5,18 +5,21 @@
 @font-face {
 	font-family: 'Clash Display';
 	src: url('/fonts/ClashDisplay-Variable.ttf');
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Satoshi';
 	src: url('/fonts/Satoshi-Variable.ttf');
 	font-style: normal;
+	font-display: swap;
 }
 
 @font-face {
 	font-family: 'Satoshi';
 	src: url('/fonts/Satoshi-VariableItalic.ttf');
 	font-style: italic;
+	font-display: swap;
 }
 
 @layer base {
@@ -71,5 +74,15 @@
 	}
 	body {
 		@apply bg-background text-foreground;
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		scroll-behavior: auto !important;
+		animation-duration: 0.01ms !important;
+		transition-duration: 0.01ms !important;
 	}
 }

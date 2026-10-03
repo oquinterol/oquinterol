@@ -1,46 +1,54 @@
 ---
 import PageLayout from '@/layouts/BaseLayout.astro'
-import Button from '@/components/Button.astro'
+import { localizedPath } from '@/i18n/routing'
+import { getPublishedResearch } from '@/utils/research'
 
-const meta = {
-	description: 'Not found',
-	title: '404'
-}
+const availableResearch = Object.fromEntries(
+	(await getPublishedResearch()).map((entry) => [
+		`${entry.data.locale}/${entry.data.id}`,
+		localizedPath(entry.data.locale, 'research-detail', entry.data.id)
+	])
+)
+const base = import.meta.env.BASE_URL
 ---
 
-<PageLayout meta={meta}>
-	<a
-		href='https://github.com/srleom/astro-theme-resume.git'
-		class='flex flex-row items-center gap-x-3 rounded-3xl border border-input px-4 py-2 text-sm shadow-sm transition-all hover:shadow-md'
-	>
-		<span class='relative flex items-center justify-center'>
-			<span
-				class='absolute inline-flex h-2 w-2 animate-ping rounded-full border border-green-400 bg-green-400 opacity-75'
-			></span>
-			<span class='relative inline-flex h-2 w-2 rounded-full bg-green-400'></span>
-		</span>
-
-		<p class='font-medium'>Get template</p>
-	</a>
-	<div class='px-4 py-10 text-center sm:px-6 lg:px-8'>
-		<h1 class='block text-7xl font-bold sm:text-9xl'>404</h1>
-		<p class='mt-3 text-muted-foreground'>Oops, something went wrong.</p>
-		<p class=''>Sorry, we couldn't find your page.</p>
-		<Button title='Back to home' href='/' style='button' class='mt-5'>
-			<svg
-				xmlns='http://www.w3.org/2000/svg'
-				width='14'
-				height='14'
-				viewBox='0 0 24 24'
-				slot='icon-after'
-				class='-scale-x-100'
+<PageLayout meta={{ title: '404', description: 'La página solicitada no existe. Page not found.' }}>
+	<div class='w-full px-4 py-16 text-center'>
+		<h1 class='text-7xl font-semibold sm:text-9xl'>404</h1>
+		<p class='mt-6 text-lg'>
+			No encontramos esta página. <span lang='en'>This page was not found.</span>
+		</p>
+		<p class='mt-6'>
+			<a id='available-translation' class='hidden underline underline-offset-4'></a>
+		</p>
+		<div class='mt-6 flex flex-wrap justify-center gap-6'>
+			<a class='underline underline-offset-4' href={localizedPath('es', 'home')}
+				>Inicio en español</a
 			>
-				<path
-					fill='currentColor'
-					d='m6.921 12.5l5.792 5.792L12 19l-7-7l7-7l.713.708L6.921 11.5H19v1z'
-				>
-				</path>
-			</svg>
-		</Button>
+			<a class='underline underline-offset-4' href={localizedPath('en', 'home')} lang='en'
+				>English home</a
+			>
+		</div>
 	</div>
 </PageLayout>
+
+<script is:inline define:vars={{ availableResearch, base }}>
+	const path = window.location.pathname
+	const relative = path.startsWith(base) ? path.slice(base.length) : ''
+	const match = relative.match(/^(es|en)\/research\/([a-z0-9-]+)\/?$/)
+	if (match) {
+		const [, requested, id] = match
+		const other = requested === 'es' ? 'en' : 'es'
+		const href = availableResearch[`${other}/${id}`]
+		if (href) {
+			const link = document.getElementById('available-translation')
+			link.href = href
+			link.lang = other
+			link.textContent =
+				other === 'es'
+					? 'Ver la versión disponible en español'
+					: 'View the available English version'
+			link.classList.remove('hidden')
+		}
+	}
+</script>

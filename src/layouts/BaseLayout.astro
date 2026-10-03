@@ -24,12 +24,16 @@ const {
 
 	<body class='flex justify-center bg-background'>
 		<ThemeProvider />
-		<main
+		<a
+			class='sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-50 focus:bg-background focus:p-3'
+			href='#content'>Saltar al contenido</a
+		>
+		<div
 			class='flex min-h-screen w-screen max-w-[60rem] flex-col items-center px-6 pb-10 pt-7 font-satoshi text-[0.92rem] leading-relaxed sm:px-10 lg:px-10'
 		>
 			<Header />
-			<slot />
+			<main id='content' class='flex w-full flex-1 flex-col items-center'><slot /></main>
 			<Footer />
-		</main>
+		</div>
 	</body>
 </html>

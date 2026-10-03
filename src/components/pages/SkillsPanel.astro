@@ -1,0 +1,49 @@
+---
+import SkillsNetwork from '@/components/visualizations/SkillsNetwork'
+import { getSkills, spokenLanguages } from '@/data/profile'
+import { localizedPath } from '@/i18n/routing'
+import { ui, type Locale } from '@/i18n/ui'
+import { getPublishedResearch } from '@/utils/research'
+
+interface Props {
+	locale: Locale
+}
+const { locale } = Astro.props
+const copy = ui[locale].cv
+const domains = Object.fromEntries(ui[locale].home.systems.map((s) => [s.id, s.title]))
+const areas = getSkills(locale)
+const research = (await getPublishedResearch()).filter((entry) => entry.data.locale === locale)
+const researchTitle = (id: string) => research.find((entry) => entry.data.id === id)?.data.title
+const toolCount = areas.reduce((total, area) => total + area.tools.length, 0)
+---
+
+<div class='bio-panel'>
+	<p class='bio-prompt'>
+		<span class='bio-prompt-user' aria-hidden='true'>oquinterol@lab:~$</span>
+		<span>{copy.skillsCommand}</span>
+		<span class='bio-cursor' aria-hidden='true'></span>
+	</p>
+	<p class='bio-readout'>
+		<span><strong>{areas.length}</strong> {copy.skillsAreas}</span>
+		<span><strong>{toolCount}</strong> {copy.skillsTools}</span>
+		<span>{spokenLanguages[locale].join(' · ')}</span>
+	</p>
+
+	<SkillsNetwork
+		areas={areas.map((area) => ({
+			...area,
+			evidence: area.evidence.flatMap((id) => {
+				const title = researchTitle(id)
+				return title ? [{ href: localizedPath(locale, 'research-detail', id), title }] : []
+			})
+		}))}
+		domains={domains}
+		copy={{
+			all: copy.skillsAll,
+			filter: copy.skillsFilter,
+			tools: copy.skillsTools,
+			evidence: copy.skillsEvidence
+		}}
+		client:visible
+	/>
+</div>

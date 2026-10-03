@@ -1,0 +1,149 @@
+---
+import LocalizedLayout from '@/layouts/LocalizedLayout.astro'
+import HelixNav from '@/components/visualizations/HelixNav'
+import LabNetwork from '@/components/visualizations/LabNetwork'
+import SystemsExplorer from '@/components/visualizations/SystemsExplorer'
+import { profile } from '@/data/profile'
+import { sp6a } from '@/data/sequences'
+import { localizedPath } from '@/i18n/routing'
+import { ui, type Locale } from '@/i18n/ui'
+import { getPublishedResearch } from '@/utils/research'
+import { getLabProjects } from '@/utils/lab'
+
+interface Props {
+	locale: Locale
+}
+const { locale } = Astro.props
+const copy = ui[locale].home
+const labCopy = ui[locale].lab
+const labProjects = await getLabProjects(locale)
+const research = (await getPublishedResearch()).find(
+	(entry) => entry.data.locale === locale && entry.data.id === 'phureja-genome'
+)
+const [systemsLabel, researchLabel, cvLabel, contactLabel] = copy.helix.links
+const helixLinks = [
+	{ id: 'systems', label: systemsLabel, href: '#systems-title' },
+	...(research ? [{ id: 'research', label: researchLabel, href: '#feature-title' }] : []),
+	{ id: 'cv', label: cvLabel, href: '#cv-title' },
+	{ id: 'contact', label: contactLabel, href: '#contact' }
+]
+---
+
+<LocalizedLayout locale={locale} page='home' title={profile.name} description={copy.intro}>
+	<div class='site-container'>
+		<section class='hero' aria-labelledby='hero-title'>
+			<p class='eyebrow'>{copy.label}</p>
+			<p class='hero-name'>{profile.creditName}</p>
+			<h1 id='hero-title'>{copy.headline}</h1>
+			<p class='hero-intro'>{copy.intro}</p>
+			<div class='hero-actions'>
+				<a class='text-link' href={localizedPath(locale, 'research')}>
+					{ui[locale].nav.research}
+					<span aria-hidden='true'>↗</span>
+				</a>
+				<a class='text-link secondary-link' href={localizedPath(locale, 'cv')}>
+					{ui[locale].nav.cv}
+					<span aria-hidden='true'>↗</span>
+				</a>
+			</div>
+			<HelixNav
+				links={helixLinks}
+				sequence={sp6a.sequence}
+				gene={sp6a.gene}
+				organism={sp6a.organism}
+				accession={sp6a.accession}
+				sourceUrl={sp6a.url}
+				copy={copy.helix}
+				client:idle
+			/>
+		</section>
+
+		<section class='editorial-section' aria-labelledby='systems-title'>
+			<div class='section-heading'>
+				<p class='eyebrow'>01 / {research ? '03' : '02'}</p>
+				<div><h2 id='systems-title'>{copy.systemsTitle}</h2><p>{copy.systemsIntro}</p></div>
+			</div>
+			<SystemsExplorer
+				systems={copy.systems}
+				label={copy.systemsTitle}
+				nextLabel={copy.nextConnection}
+				exploreLabel={copy.exploreSystems}
+				backLabel={copy.backToOverview}
+				client:visible
+			/>
+			<section class='telemetry' aria-labelledby='telemetry-title'>
+				<p class='eyebrow'>{labCopy.label}</p>
+				<h3 id='telemetry-title'>{labCopy.networkTitle}</h3>
+				<p>{labCopy.networkIntro}</p>
+				<LabNetwork
+					devices={labProjects.map(({ data }) => ({
+						id: data.id,
+						title: data.title,
+						summary: data.summary,
+						status: data.status,
+						link: data.link,
+						href: `${localizedPath(locale, 'lab')}#${data.id}`
+					}))}
+					copy={{
+						label: labCopy.networkLabel,
+						gateway: labCopy.gateway,
+						hub: labCopy.hub,
+						automations: labCopy.automations,
+						statuses: labCopy.statuses,
+						links: labCopy.links,
+						openProject: labCopy.openProject,
+						legend: labCopy.legend
+					}}
+					client:visible
+				/>
+				<a class='text-link' href={localizedPath(locale, 'lab')}>
+					{labCopy.viewLab}
+					<span aria-hidden='true'>↗</span>
+				</a>
+			</section>
+		</section>
+
+		{
+			research && (
+				<section class='editorial-section feature-section' aria-labelledby='feature-title'>
+					<div class='section-heading'>
+						<p class='eyebrow'>02 / 03</p>
+						<div>
+							<>
+								<p class='section-kicker'>{copy.researchLabel}</p>
+								<h2 id='feature-title'>{copy.researchTitle}</h2>
+							</>
+						</div>
+					</div>
+					<div class='feature-body'>
+						<p>{copy.researchSummary}</p>
+						<a class='text-link' href={localizedPath(locale, 'research-detail', research.data.id)}>
+							{copy.researchLink} <span aria-hidden='true'>↗</span>
+						</a>
+					</div>
+				</section>
+			)
+		}
+
+		<section class='editorial-section cv-contact' aria-labelledby='cv-title'>
+			<div class='section-heading'>
+				<p class='eyebrow'>{research ? '03 / 03' : '02 / 02'}</p>
+				<div>
+					<p class='section-kicker'>{copy.cvLabel}</p><h2 id='cv-title'>{copy.cvTitle}</h2><p>
+						{copy.cvSummary}
+					</p>
+					<a class='text-link' href={localizedPath(locale, 'cv')}
+						>{copy.cvLink} <span aria-hidden='true'>↗</span></a
+					>
+				</div>
+			</div>
+			<div class='contact-cta' id='contact'>
+				<p class='eyebrow'>{copy.contactLabel}</p>
+				<p>{copy.contactTitle}</p>
+				<a class='text-link' href={`mailto:${profile.email}`}
+					>{copy.contactLink} <span aria-hidden='true'>↗</span></a
+				>
+			</div>
+		</section>
+	</div>
+</LocalizedLayout>
