@@ -1,0 +1,58 @@
+---
+import '@/styles/site.css'
+import type { Locale } from '@/i18n/ui'
+import type { Page } from '@/i18n/routing'
+import { alternatePaths } from '@/i18n/routing'
+import BaseHead from '@/components/BaseHead.astro'
+import SiteHeader from '@/components/layout/SiteHeader.astro'
+import SiteFooter from '@/components/layout/SiteFooter.astro'
+
+interface Props {
+	locale: Locale
+	page: Page
+	id?: string
+	title: string
+	description: string
+	availableLocales?: Locale[]
+}
+
+const { locale, page, id, title, description, availableLocales } = Astro.props
+const alternates = alternatePaths(page, id, availableLocales)
+---
+
+<!doctype html>
+<html lang={locale === 'es' ? 'es-CO' : 'en'}>
+	<head>
+		<BaseHead
+			title={title}
+			description={description}
+			locale={locale}
+			alternates={alternates}
+			xDefault={page === 'home'}
+			themeColor='#070a09'
+		/>
+	</head>
+	<body class='new-site'>
+		<a class='skip-link' href='#content'
+			>{locale === 'es' ? 'Saltar al contenido' : 'Skip to content'}</a
+		>
+		<SiteHeader locale={locale} page={page} alternates={alternates} />
+		<main id='content' class='site-main'><slot /></main>
+		<SiteFooter locale={locale} />
+		<script>
+			// A direct URL always wins. The preference is used only to highlight a choice at /.
+			document.addEventListener('click', (event) => {
+				const target = event.target
+				if (!(target instanceof Element)) return
+				const link = target.closest<HTMLAnchorElement>('a[data-language-choice]')
+				const locale = link?.dataset.languageChoice
+				if (locale !== 'es' && locale !== 'en') return
+				try {
+					localStorage.setItem('site.locale', locale)
+				} catch {
+					/* Storage is optional. */
+				}
+			})
+		</script>
+	</body>
+</html>

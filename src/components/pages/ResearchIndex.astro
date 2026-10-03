@@ -1,0 +1,52 @@
+---
+import LocalizedLayout from '@/layouts/LocalizedLayout.astro'
+import { ui, type Locale } from '@/i18n/ui'
+import { localizedPath } from '@/i18n/routing'
+import { getPublishedResearch } from '@/utils/research'
+
+interface Props {
+	locale: Locale
+}
+const { locale } = Astro.props
+const copy = ui[locale].research
+const allEntries = await getPublishedResearch()
+const entries = allEntries.filter((entry) => entry.data.locale === locale)
+const otherLocale = locale === 'es' ? 'en' : 'es'
+const otherAvailable = allEntries.some((entry) => entry.data.locale === otherLocale)
+---
+
+<LocalizedLayout locale={locale} page='research' title={copy.label} description={copy.intro}>
+	<div class='site-container page-content'>
+		<div class='page-heading'><p class='eyebrow'>{copy.label}</p><h1>{copy.intro}</h1></div>
+		{!entries.length && <p class='lead'>{copy.noEntries}</p>}
+		{
+			!entries.length && otherAvailable && (
+				<a class='text-link' href={localizedPath(otherLocale, 'research')}>
+					{copy.otherLanguage} ↗
+				</a>
+			)
+		}
+		{
+			entries.length > 0 && (
+				<ul class='research-list'>
+					{entries.map((entry) => (
+						<li>
+							<article>
+								<p class='eyebrow'>{copy.thesis}</p>
+								<h2>
+									<a href={localizedPath(locale, 'research-detail', entry.data.id)}>
+										{entry.data.title}
+									</a>
+								</h2>
+								<p>{entry.data.summary}</p>
+								<a class='text-link' href={localizedPath(locale, 'research-detail', entry.data.id)}>
+									{copy.detail} <span aria-hidden='true'>↗</span>
+								</a>
+							</article>
+						</li>
+					))}
+				</ul>
+			)
+		}
+	</div>
+</LocalizedLayout>

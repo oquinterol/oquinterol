@@ -2,13 +2,12 @@ import type { SiteConfig } from '@/types'
 import type { AstroExpressiveCodeOptions } from 'astro-expressive-code'
 
 export const siteConfig: SiteConfig = {
-	// Used as both a meta property (src/components/BaseHead.astro L:31 + L:49) & the generated satori png (src/pages/og-image/[slug].png.ts)
-	author: 'Oscar Quintero',
-	// Meta property used to construct the meta title property, found in src/components/BaseHead.astro L:11
-	title: 'Oscar Quintero',
+	// Full name from the public ORCID record; the shorter credit name is in profile.ts.
+	author: 'Oscar Alexis Quintero López',
+	title: 'Oscar Alexis Quintero López',
 	// Meta property used as the default description meta property
 	description:
-		'Sitio personal de Oscar A. Quintero López, bioinformático enfocado en genómica, biología de sistemas y reproducibilidad computacional.',
+		'Sitio personal de Oscar Alexis Quintero López, bioinformático enfocado en genómica, biología de sistemas y reproducibilidad computacional.',
 	// HTML lang property, found in src/layouts/Base.astro L:18
 	lang: 'es-CO',
 	// Meta property, found in src/components/BaseHead.astro L:42

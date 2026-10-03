@@ -1,0 +1,33 @@
+---
+import type { Locale } from '@/i18n/ui'
+import { ui } from '@/i18n/ui'
+
+interface Props {
+	locale: Locale
+	alternates: Array<{ locale: Locale; path: string }>
+}
+
+const { locale, alternates } = Astro.props
+const otherLocale: Locale = locale === 'es' ? 'en' : 'es'
+const other = alternates.find((item) => item.locale === otherLocale)
+---
+
+<div class='language-switcher' role='group' aria-label={locale === 'es' ? 'Idioma' : 'Language'}>
+	<span aria-current='true'>{locale.toUpperCase()}</span>
+	<span aria-hidden='true'>/</span>
+	{
+		other ? (
+			<a
+				href={other.path}
+				data-language-choice={otherLocale}
+				aria-label={ui[locale].languageSwitch}
+			>
+				{otherLocale.toUpperCase()}
+			</a>
+		) : (
+			<span title={locale === 'es' ? 'Traducción pendiente' : 'Translation pending'}>
+				{otherLocale.toUpperCase()}
+			</span>
+		)
+	}
+</div>

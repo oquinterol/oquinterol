@@ -6,8 +6,6 @@ import BlogHero from '@/components/blog/Hero.astro'
 import TOC from '@/components/blog/TOC.astro'
 import Button from '@/components/Button.astro'
 
-import { getPostSlug } from '@/utils'
-
 import PageLayout from './BaseLayout.astro'
 
 interface Props {
@@ -19,8 +17,7 @@ const {
 	data: { description, ogImage, publishDate, title, updatedDate }
 } = post
 
-const slug = getPostSlug(post)
-const socialImage = ogImage ?? `/og-image/${slug}.png`
+const socialImage = ogImage ?? `${import.meta.env.BASE_URL}social-card.png`
 const articleDate = updatedDate?.toISOString() ?? publishDate.toISOString()
 const { headings } = await render(post)
 ---
@@ -86,7 +83,10 @@ const { headings } = await render(post)
 	}
 
 	scrollBtn.addEventListener('click', () => {
-		document.documentElement.scrollTo({ behavior: 'smooth', top: 0 })
+		document.documentElement.scrollTo({
+			behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth',
+			top: 0
+		})
 	})
 
 	const observer = new IntersectionObserver(callback)

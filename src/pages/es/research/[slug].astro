@@ -1,0 +1,22 @@
+---
+import type { GetStaticPaths } from 'astro'
+import { getPublishedResearch, type ResearchEntry } from '@/utils/research'
+import ResearchArticle from '@/components/pages/ResearchArticle.astro'
+
+export const getStaticPaths = (async () => {
+	const entries = await getPublishedResearch()
+	return entries
+		.filter((entry) => entry.data.locale === 'es')
+		.map((entry) => ({
+			params: { slug: entry.data.id },
+			props: { entry }
+		}))
+}) satisfies GetStaticPaths
+
+interface Props {
+	entry: ResearchEntry
+}
+const { entry } = Astro.props
+---
+
+<ResearchArticle entry={entry} />

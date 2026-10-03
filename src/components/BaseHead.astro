@@ -4,16 +4,33 @@
 import '../styles/app.css'
 
 import type { SiteMeta } from '@/types'
+import type { Locale } from '@/i18n/ui'
 import { siteConfig } from '@/site-config'
 
-type Props = SiteMeta
+type Props = SiteMeta & {
+	locale?: Locale
+	alternates?: Array<{ locale: Locale; path: string }>
+	xDefault?: boolean
+	themeColor?: string
+}
 
-const { articleDate, description, ogImage, title } = Astro.props
+const {
+	articleDate,
+	description,
+	ogImage,
+	title,
+	locale,
+	alternates = [],
+	xDefault = false,
+	themeColor = '#faf9f6'
+} = Astro.props
 
 const titleSeparator = '•'
-const siteTitle = `${title} ${titleSeparator} ${siteConfig.title}`
+const siteTitle =
+	title === siteConfig.title ? title : `${title} ${titleSeparator} ${siteConfig.title}`
 const canonicalURL = new URL(Astro.url.pathname, Astro.site)
-const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url).href
+const base = import.meta.env.BASE_URL
+const socialImageURL = new URL(ogImage ?? `${base}social-card.png`, Astro.site).href
 ---
 
 <meta charset='utf-8' />
@@ -21,30 +38,31 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content='IE=edge' http-equiv='X-UA-Compatible' />
 <title>{siteTitle}</title>
 
-{/* Icons / Favicon */}
-<!-- <link href="favicon/favicon.ico" rel="icon" sizes="any" />
-<link href="favicon/icon.svg" rel="icon" type="image/svg+xml" />
-<link href="/apple-touch-icon.png" rel="apple-touch-icon" />
-<link href="/manifest.webmanifest" rel="manifest" /> -->
-
-<link rel='apple-touch-icon' sizes='180x180' href='/favicon/apple-touch-icon.png' />
-<link rel='icon' type='image/png' sizes='32x32' href='/favicon/favicon-32x32.png' />
-<link rel='icon' type='image/png' sizes='16x16' href='/favicon/favicon-16x16.png' />
-<link rel='manifest' href='/favicon/site.webmanifest' />
-
-{/* Font preloads */}
-<!-- <link rel='preload' href='/fonts/Satoshi-Variable.ttf' as='font' type='font/ttf' crossorigin />
-<link
-	rel='preload'
-	href='/fonts/Satoshi-VariableItalic.ttf'
-	as='font'
-	type='font/ttf'
-	crossorigin
-/>
-<link rel='preload' href='/fonts/ClashDisplay-Variable.ttf' as='font' type='font/ttf' crossorigin /> -->
+<link rel='apple-touch-icon' sizes='180x180' href={`${base}favicon/apple-touch-icon.png`} />
+<link rel='icon' type='image/png' sizes='32x32' href={`${base}favicon/favicon-32x32.png`} />
+<link rel='icon' type='image/png' sizes='16x16' href={`${base}favicon/favicon-16x16.png`} />
+<link rel='manifest' href={`${base}favicon/site.webmanifest`} />
 
 {/* Canonical URL */}
 <link rel='canonical' href={canonicalURL} />
+{
+	alternates.map(({ locale: alternateLocale, path }) => (
+		<link
+			rel='alternate'
+			hreflang={alternateLocale === 'es' ? 'es-CO' : 'en'}
+			href={new URL(path, Astro.site)}
+		/>
+	))
+}
+{
+	xDefault && (
+		<link
+			rel='alternate'
+			hreflang='x-default'
+			href={new URL(import.meta.env.BASE_URL, Astro.site)}
+		/>
+	)
+}
 
 {/* Primary Meta Tags */}
 <meta content={siteTitle} name='title' />
@@ -52,7 +70,7 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content={siteConfig.author} name='author' />
 
 {/* Theme Colour */}
-<meta content='' name='theme-color' />
+<meta content={themeColor} name='theme-color' />
 
 {/* Open Graph / Facebook */}
 <meta content={articleDate ? 'article' : 'website'} property='og:type' />
@@ -60,7 +78,17 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content={description} property='og:description' />
 <meta content={canonicalURL} property='og:url' />
 <meta content={siteConfig.title} property='og:site_name' />
-<meta content={siteConfig.ogLocale} property='og:locale' />
+<meta content={locale === 'en' ? 'en_US' : siteConfig.ogLocale} property='og:locale' />
+{
+	alternates
+		.filter((alternate) => alternate.locale !== locale)
+		.map((alternate) => (
+			<meta
+				content={alternate.locale === 'es' ? 'es_CO' : 'en_US'}
+				property='og:locale:alternate'
+			/>
+		))
+}
 <meta content={socialImageURL} property='og:image' />
 <meta content='1200' property='og:image:width' />
 <meta content='630' property='og:image:height' />
@@ -81,9 +109,9 @@ const socialImageURL = new URL(ogImage ? ogImage : '/social-card.png', Astro.url
 <meta content={socialImageURL} property='twitter:image' />
 
 {/* Sitemap */}
-<link href='/sitemap-index.xml' rel='sitemap' />
+<link href={`${base}sitemap-index.xml`} rel='sitemap' />
 
 {/* RSS auto-discovery */}
-<link href='/rss.xml' rel='alternate' title={siteConfig.title} type='application/rss+xml' />
+<link href={`${base}rss.xml`} rel='alternate' title={siteConfig.title} type='application/rss+xml' />
 
 <meta content={Astro.generator} name='generator' />

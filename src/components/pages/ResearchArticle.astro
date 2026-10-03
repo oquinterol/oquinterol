@@ -1,0 +1,54 @@
+---
+import { render } from 'astro:content'
+import type { ResearchEntry } from '@/utils/research'
+import { getPublishedResearch, researchLocales } from '@/utils/research'
+import LocalizedLayout from '@/layouts/LocalizedLayout.astro'
+import PipelineExplorer from '@/components/visualizations/PipelineExplorer'
+import { localizedPath } from '@/i18n/routing'
+import { ui } from '@/i18n/ui'
+
+interface Props {
+	entry: ResearchEntry
+}
+const { entry } = Astro.props
+const { locale, id, title, summary, sourceUrl } = entry.data
+const availableLocales = researchLocales(await getPublishedResearch(), id)
+const copy = ui[locale].research
+const { Content } = await render(entry)
+---
+
+<LocalizedLayout
+	locale={locale}
+	page='research-detail'
+	id={id}
+	title={title}
+	description={summary}
+	availableLocales={availableLocales}
+>
+	<article class='site-container page-content research-article'>
+		<a class='text-link back-link' href={localizedPath(locale, 'research')}>← {copy.back}</a>
+		<header class='page-heading'>
+			<p class='eyebrow'>{copy.thesis}</p>
+			<h1>{title}</h1>
+			<p class='lead'>{summary}</p>
+		</header>
+		<section class='pipeline-section' aria-labelledby='pipeline-title'>
+			<p class='eyebrow'>{copy.method}</p>
+			<h2 id='pipeline-title'>{copy.methodIntro}</h2>
+			<PipelineExplorer
+				steps={copy.steps.map((title, index) => ({ title, detail: copy.stepDetails[index] ?? '' }))}
+				label={copy.method}
+				schematicNote={copy.schematicNote}
+				playLabel={copy.playTour}
+				stopLabel={copy.stopTour}
+				client:visible
+			/>
+		</section>
+		<div class='article-body'><Content /></div>
+		<aside class='source-note'>
+			<h2>{copy.provenance}</h2>
+			<p>{copy.provenanceText}</p>
+			<a class='text-link' href={sourceUrl}>{copy.readSource} <span aria-hidden='true'>↗</span></a>
+		</aside>
+	</article>
+</LocalizedLayout>

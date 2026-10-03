@@ -1,0 +1,164 @@
+---
+import { render } from 'astro:content'
+import LocalizedLayout from '@/layouts/LocalizedLayout.astro'
+import LabNetwork from '@/components/visualizations/LabNetwork'
+import { ui, type Locale } from '@/i18n/ui'
+import { getLabProjects } from '@/utils/lab'
+
+interface Props {
+	locale: Locale
+}
+const { locale } = Astro.props
+const copy = ui[locale].lab
+const projects = await getLabProjects(locale)
+const rendered = await Promise.all(
+	projects.map(async (entry) => ({ entry, ...(await render(entry)) }))
+)
+// Archived is shown as a label, not as a step on the track.
+const track = ['idea', 'prototype', 'experimental', 'active', 'completed'] as const
+---
+
+<LocalizedLayout locale={locale} page='lab' title={copy.label} description={copy.intro}>
+	<div class='site-container page-content'>
+		<div class='page-heading'>
+			<p class='eyebrow'>{copy.label}</p>
+			<h1>{copy.title}</h1>
+			<p class='lead'>{copy.intro}</p>
+		</div>
+
+		<section class='editorial-section' aria-labelledby='network-title'>
+			<div class='section-heading'>
+				<p class='eyebrow'>01 / 03</p>
+				<div><h2 id='network-title'>{copy.networkTitle}</h2><p>{copy.networkIntro}</p></div>
+			</div>
+			<LabNetwork
+				devices={projects.map(({ data }) => ({
+					id: data.id,
+					title: data.title,
+					summary: data.summary,
+					status: data.status,
+					link: data.link,
+					href: `#${data.id}`
+				}))}
+				copy={{
+					label: copy.networkLabel,
+					gateway: copy.gateway,
+					hub: copy.hub,
+					automations: copy.automations,
+					statuses: copy.statuses,
+					links: copy.links,
+					openProject: copy.openProject,
+					legend: copy.legend
+				}}
+				client:visible
+			/>
+		</section>
+
+		<section class='editorial-section' aria-labelledby='projects-title'>
+			<div class='section-heading'>
+				<p class='eyebrow'>02 / 03</p>
+				<div><h2 id='projects-title'>{copy.networkLabel}</h2></div>
+			</div>
+			<ul class='lab-projects'>
+				{
+					rendered.map(({ entry, Content }) => {
+						const { data } = entry
+						const step = track.indexOf(data.status as (typeof track)[number])
+						return (
+							<li id={data.id} data-status={data.status}>
+								<article>
+									<ol class='lab-track' aria-label={copy.statuses[data.status]}>
+										{track.map((status, index) => (
+											<li
+												data-reached={step >= 0 && index <= step}
+												aria-current={index === step ? 'step' : undefined}
+											>
+												{copy.statuses[status]}
+											</li>
+										))}
+									</ol>
+									<h3>{data.title}</h3>
+									<p class='lab-summary'>{data.summary}</p>
+									<dl class='lab-facts'>
+										<div>
+											<dt>{copy.measures}</dt>
+											<dd>{data.measures.length ? data.measures.join(' · ') : copy.tbd}</dd>
+										</div>
+										<div>
+											<dt>{copy.actions}</dt>
+											<dd>{data.actions.length ? data.actions.join(' · ') : copy.tbd}</dd>
+										</div>
+										<div>
+											<dt>{copy.controller}</dt>
+											<dd>{data.controller ?? copy.tbd}</dd>
+										</div>
+										<div>
+											<dt>
+												{copy.links.lora} / {copy.links.wifi}
+											</dt>
+											<dd>{copy.links[data.link]}</dd>
+										</div>
+										<div>
+											<dt>{copy.repository}</dt>
+											<dd>
+												{data.repository ? (
+													<a href={data.repository}>
+														GitHub <span aria-hidden='true'>↗</span>
+													</a>
+												) : (
+													copy.noRepository
+												)}
+											</dd>
+										</div>
+										<div>
+											<dt>{copy.since}</dt>
+											<dd>
+												<time datetime={data.statusDate.toISOString().slice(0, 10)}>
+													{data.statusDate.toLocaleDateString(locale === 'es' ? 'es-CO' : 'en', {
+														year: 'numeric',
+														month: 'long',
+														day: 'numeric',
+														timeZone: 'UTC'
+													})}
+												</time>
+											</dd>
+										</div>
+									</dl>
+									<div class='lab-body'>
+										<Content />
+									</div>
+								</article>
+							</li>
+						)
+					})
+				}
+			</ul>
+		</section>
+
+		<section class='editorial-section' aria-labelledby='open-title'>
+			<div class='section-heading'>
+				<p class='eyebrow'>03 / 03</p>
+				<div>
+					<h2 id='open-title'>{copy.openTitle}</h2>
+					<p>{copy.openIntro}</p>
+					<a class='text-link' href='https://github.com/oquinterol/lab'>
+						{copy.openRepo}
+						<span aria-hidden='true'>↗</span>
+					</a>
+				</div>
+			</div>
+			<dl class='lab-licences'>
+				{
+					copy.licences.map((item) => (
+						<div>
+							<dt>{item.what}</dt>
+							<dd>
+								<a href={item.url}>{item.licence}</a>
+							</dd>
+						</div>
+					))
+				}
+			</dl>
+		</section>
+	</div>
+</LocalizedLayout>
