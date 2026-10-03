@@ -987,6 +987,12 @@
 .tool-page .page-heading {
 	padding-bottom: 2rem;
 }
+.tool-detail {
+	max-width: 62ch;
+	margin: 0 0 1rem;
+	color: var(--ink-soft);
+	font-size: 1.05rem;
+}
 .secondary-link + .secondary-link,
 .research-list .text-link + .text-link {
 	margin-left: 1.5rem;

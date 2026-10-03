@@ -85,8 +85,12 @@ export const ui = {
 			open: 'Abrir',
 			vectorEditor: {
 				title: 'Editor de vectores',
+				// Card on /tools/ and meta description (keep under ~160 characters).
 				summary:
-					'Simula una clonación: elige enzimas comerciales (REBASE) o propias, digiere vector e inserto, liga y obtén en vivo el FASTA y el mapa circular del plásmido.',
+					'Prueba tu clonación antes de tocar la pipeta: enzimas REBASE o propias, extremos reales y el plásmido resultante en mapa y FASTA vinculados.',
+				lead: 'Prueba tu clonación antes de tocar la pipeta. Elige las enzimas y mira cómo se abre el vector, qué extremos deja y cómo encaja el inserto: el plásmido aparece al instante, en un mapa circular y en un FASTA donde cada base tiene el color de donde vino.',
+				detail:
+					'Te avisa si una enzima corta dentro de tu gen, si los extremos no ligan o si el vector puede cerrarse sobre sí mismo. Todo corre en tu navegador: tus secuencias no salen de tu equipo.',
 				noscript: 'Esta herramienta necesita JavaScript: todo el cálculo ocurre en tu navegador.',
 				repository: 'https://github.com/oquinterol/vector-editor'
 			}
@@ -267,8 +271,12 @@ export const ui = {
 			open: 'Open',
 			vectorEditor: {
 				title: 'Vector editor',
+				// Card on /tools/ and meta description (keep under ~160 characters).
 				summary:
-					'Simulate a cloning: choose commercial (REBASE) or custom enzymes, digest vector and insert, ligate, and get a live FASTA and circular map of the plasmid.',
+					'Try your cloning before the bench: REBASE or custom enzymes, real sticky ends, and the resulting plasmid in a linked map and FASTA.',
+				lead: 'Try your cloning before you pick up a pipette. Choose the enzymes and watch the vector open, the ends it leaves, and how the insert fits: the plasmid appears instantly, on a circular map and in a FASTA where every base is coloured by where it came from.',
+				detail:
+					'It warns you when an enzyme cuts inside your gene, when ends will not ligate, or when the vector can close on itself. Everything runs in your browser: your sequences never leave your machine.',
 				noscript: 'This tool needs JavaScript: all computation happens in your browser.',
 				repository: 'https://github.com/oquinterol/vector-editor'
 			}
