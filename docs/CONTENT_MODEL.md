@@ -123,7 +123,7 @@ translationStatus: {
 
 ## Inventario mínimo antes de publicar
 
-Para cada entrada: ID, tipo, dominios, título y resumen por lengua disponible, estado verificable, problema/pregunta, qué hizo Oscar y qué está pendiente, URLs, autoría y permisos de medios, relaciones existentes, fuentes de cualquier resultado/afirmación, traducciones faltantes. La lista de brechas y una plantilla operativa están en [CONTENT_TODO.md](./CONTENT_TODO.md).
+Para cada entrada: ID, tipo, dominios, título y resumen por lengua disponible, estado verificable, problema/pregunta, qué hizo Oscar y qué está pendiente, URLs, autoría y permisos de medios, relaciones existentes, fuentes de cualquier resultado/afirmación, traducciones faltantes. La lista de brechas y una plantilla operativa están en el inventario editorial privado (`.private/CONTENT_TODO.md`, fuera del repositorio público).
 
 ## Migración del contenido ya existente
 

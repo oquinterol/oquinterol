@@ -69,4 +69,4 @@ Agrupar por intención y pasar CI en cada cambio: `docs: audit current architect
 - Sitemap i18n automático puede inventar alternates en traducciones parciales y clasificar rutas legadas sin prefijo como español: inspeccionar XML real.
 - Las tecnologías AI/IoT propuestas en el prompt son **candidatas de inventario**, no logros verificados.
 
-Consultar [CURRENT_ARCHITECTURE.md](./CURRENT_ARCHITECTURE.md) para el inventario actual, [I18N_ARCHITECTURE.md](./I18N_ARCHITECTURE.md) para SEO/rutas, y [CONTENT_TODO.md](./CONTENT_TODO.md) para las brechas editoriales.
+Consultar [CURRENT_ARCHITECTURE.md](./CURRENT_ARCHITECTURE.md) para el inventario actual, [I18N_ARCHITECTURE.md](./I18N_ARCHITECTURE.md) para SEO/rutas, y el inventario editorial privado (`.private/CONTENT_TODO.md`, fuera del repositorio público) para las brechas editoriales.
