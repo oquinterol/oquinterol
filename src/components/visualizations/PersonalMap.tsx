@@ -1,11 +1,7 @@
-import React, { useEffect, useId, useRef, useState } from 'react'
-import {
-	MAP_HEIGHT,
-	MAP_WIDTH,
-	type PersonalMapCopy,
-	type PersonalMapData,
-	type PersonalMapNode
-} from '@/data/personal-map'
+import React, { useEffect, useId, useMemo, useRef, useState } from 'react'
+import type { PersonalMapCopy, PersonalMapData, PersonalMapNode } from '@/data/personal-map'
+import { useDiagramLayout } from './useDiagramLayout'
+import { personalMapLayout } from './personalMapLayout'
 
 interface Props {
 	graph: PersonalMapData
@@ -36,6 +32,11 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 	const [query, setQuery] = useState('')
 	const [zoom, setZoom] = useState(MIN_ZOOM)
 	const [centreRequest, setCentreRequest] = useState(0)
+	const { ref: layoutRef, portrait } = useDiagramLayout()
+	const layout = useMemo(() => personalMapLayout(graph.nodes, portrait), [graph.nodes, portrait])
+	const [fitZoom, setFitZoom] = useState(MIN_ZOOM)
+	const minimumZoom = portrait ? fitZoom : MIN_ZOOM
+	const maximumZoom = portrait ? 2 : MAX_ZOOM
 
 	useEffect(() => {
 		const dialog = dialogRef.current
@@ -44,7 +45,6 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 		document.body.style.overflow = 'hidden'
 		const media = window.matchMedia('(max-width: 700px)')
 		setCompact(media.matches)
-		if (media.matches) setView('list')
 		const resize = () => setCompact(media.matches)
 		media.addEventListener('change', resize)
 		dialog.showModal()
@@ -60,17 +60,37 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 		bodyRef.current?.scrollTo({ top: 0, behavior: 'instant' })
 	}, [view, centreRequest])
 
+	useEffect(() => {
+		const viewport = viewportRef.current
+		if (!viewport || view !== 'map') return
+		let previousWidth = -1
+		const update = () => {
+			if (viewport.clientWidth === previousWidth) return
+			previousWidth = viewport.clientWidth
+			const fit = portrait
+				? Math.max(0.55, Math.min(1.1, (viewport.clientWidth - 16) / layout.width))
+				: MIN_ZOOM
+			setFitZoom(fit)
+			setZoom(fit)
+		}
+		const observer = new ResizeObserver(update)
+		observer.observe(viewport)
+		update()
+		return () => observer.disconnect()
+	}, [portrait, view, layout.width])
+
 	// A deliberately stable layout makes every relationship traceable. Native scroll works
 	// with mouse, touch, keyboard, and browser zoom, including on small screens.
 	useEffect(() => {
 		const viewport = viewportRef.current
 		if (!viewport || view !== 'map') return
+		const centre = layout.nodes.find((node) => node.id === selected)!
 		viewport.scrollTo({
-			left: (MAP_WIDTH * zoom - viewport.clientWidth) / 2,
-			top: (MAP_HEIGHT * zoom - viewport.clientHeight) / 2,
+			left: centre.x * zoom - viewport.clientWidth / 2,
+			top: portrait && selected === 'curiosity' ? 0 : centre.y * zoom - viewport.clientHeight / 2,
 			behavior: 'instant'
 		})
-	}, [zoom, view, centreRequest])
+	}, [zoom, view, centreRequest, portrait, layout, selected])
 
 	const active = graph.nodes.find((node) => node.id === selected) ?? graph.nodes[0]!
 	const connections = graph.edges
@@ -86,7 +106,7 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 	const matches = graph.nodes.filter((node) =>
 		normalise(`${node.label} ${node.description}`).includes(search)
 	)
-	const positions = new Map(graph.nodes.map((node) => [node.id, node]))
+	const positions = new Map(layout.nodes.map((node) => [node.id, node]))
 	const inlineDetail = compact && view === 'list' && matches.some((node) => node.id === active.id)
 
 	useEffect(() => {
@@ -108,8 +128,9 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 		// Bring a connection selected from the reading panel into the map's visible region.
 		const viewport = viewportRef.current
 		if (!viewport || view !== 'map') return
-		const x = node.x * zoom
-		const y = node.y * zoom
+		const point = positions.get(node.id)!
+		const x = point.x * zoom
+		const y = point.y * zoom
 		const margin = 100 * zoom
 		const left = viewport.scrollLeft
 		const top = viewport.scrollTop
@@ -130,6 +151,7 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 	const detail = (
 		<section
 			className='personal-map-detail'
+			tabIndex={-1}
 			id={`${id}-detail`}
 			data-domain={active.domain}
 			aria-label={copy.connections}
@@ -164,7 +186,8 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 	return (
 		<dialog
 			ref={dialogRef}
-			className='personal-map-dialog'
+			className='personal-map-dialog diagram-shell'
+			data-layout={portrait ? 'portrait' : 'landscape'}
 			aria-labelledby={`${id}-title`}
 			aria-describedby={`${id}-hint`}
 			onClose={onClose}
@@ -212,14 +235,73 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 						{matches.length} / {graph.nodes.length} {copy.nodes}
 					</p>
 				</div>
-				<p className='personal-map-hint' id={`${id}-hint`}>
-					{copy.hint}
-				</p>
+				<details className='personal-map-help'>
+					<summary>{copy.help}</summary>
+					<p className='personal-map-hint' id={`${id}-hint`}>
+						{copy.hint}
+					</p>
+					<p className='personal-map-hint'>{copy.legend}</p>
+				</details>
 
-				<div className='personal-map-body' ref={bodyRef}>
+				<div
+					className='personal-map-body diagram-stage'
+					ref={(element) => {
+						bodyRef.current = element
+						layoutRef.current = element
+					}}
+				>
 					<div className='personal-map-exploration'>
 						{view === 'map' ? (
 							<>
+								<div className='map-zoom' role='group' aria-label={copy.zoom}>
+									<button
+										type='button'
+										aria-label={copy.zoomOut}
+										disabled={zoom <= minimumZoom}
+										onClick={() => setZoom((value) => Math.max(minimumZoom, value - 0.15))}
+									>
+										−
+									</button>
+									<output aria-label={copy.zoom}>{Math.round(zoom * 100)}%</output>
+									<button
+										type='button'
+										aria-label={copy.zoomIn}
+										disabled={zoom >= maximumZoom}
+										onClick={() => setZoom((value) => Math.min(maximumZoom, value + 0.15))}
+									>
+										+
+									</button>
+									<button
+										type='button'
+										aria-label={copy.reset}
+										title={copy.reset}
+										onClick={() => {
+											setZoom(minimumZoom)
+											setSelected('curiosity')
+											setQuery('')
+											setCentreRequest((value) => value + 1)
+										}}
+									>
+										{portrait ? <span aria-hidden='true'>↺</span> : copy.reset}
+									</button>
+									{portrait && (
+										<button
+											type='button'
+											className='map-read-selection'
+											aria-label={copy.readSelection}
+											title={copy.readSelection}
+											onClick={() => {
+												const detail =
+													dialogRef.current?.querySelector<HTMLElement>('.personal-map-detail')
+												detail?.scrollTo({ top: 0, behavior: 'instant' })
+												detail?.focus({ preventScroll: true })
+												detail?.scrollIntoView({ block: 'start', behavior: 'instant' })
+											}}
+										>
+											{copy.details}
+										</button>
+									)}
+								</div>
 								<div
 									className='personal-map-viewport'
 									ref={viewportRef}
@@ -230,13 +312,13 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 									<div
 										className='personal-map-canvas'
 										style={{
-											width: MAP_WIDTH * zoom,
-											height: MAP_HEIGHT * zoom,
+											width: layout.width * zoom,
+											height: layout.height * zoom,
 											['--map-scale' as string]: zoom
 										}}
 									>
 										<svg
-											viewBox={`0 0 ${MAP_WIDTH} ${MAP_HEIGHT}`}
+											viewBox={`0 0 ${layout.width} ${layout.height}`}
 											aria-hidden='true'
 											focusable='false'
 										>
@@ -258,7 +340,7 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 												)
 											})}
 										</svg>
-										{graph.nodes.map((node) => (
+										{layout.nodes.map((node) => (
 											<button
 												key={node.id}
 												type='button'
@@ -281,36 +363,6 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 											</button>
 										))}
 									</div>
-								</div>
-								<div className='map-zoom' role='group' aria-label={copy.zoom}>
-									<button
-										type='button'
-										aria-label={copy.zoomOut}
-										disabled={zoom <= MIN_ZOOM}
-										onClick={() => setZoom((value) => Math.max(MIN_ZOOM, value - 0.15))}
-									>
-										−
-									</button>
-									<output aria-label={copy.zoom}>{Math.round(zoom * 100)}%</output>
-									<button
-										type='button'
-										aria-label={copy.zoomIn}
-										disabled={zoom >= MAX_ZOOM}
-										onClick={() => setZoom((value) => Math.min(MAX_ZOOM, value + 0.15))}
-									>
-										+
-									</button>
-									<button
-										type='button'
-										onClick={() => {
-											setZoom(MIN_ZOOM)
-											setSelected('curiosity')
-											setQuery('')
-											setCentreRequest((value) => value + 1)
-										}}
-									>
-										{copy.reset}
-									</button>
 								</div>
 							</>
 						) : (
@@ -348,7 +400,7 @@ export default function PersonalMap({ graph, copy, onClose }: Props) {
 
 					{!inlineDetail && detail}
 				</div>
-				<p className='personal-map-legend'>{copy.legend}</p>
+				<p className='personal-map-legend'>{copy.shortLegend}</p>
 			</div>
 		</dialog>
 	)

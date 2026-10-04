@@ -3,7 +3,6 @@ import { useReducedMotion } from './useReducedMotion'
 
 type Status = 'idea' | 'prototype' | 'experimental' | 'active' | 'completed' | 'archived'
 type Link = 'lora' | 'wifi' | 'tbd'
-
 type Device = {
 	id: string
 	title: string
@@ -12,7 +11,6 @@ type Device = {
 	link: Link
 	href: string
 }
-
 interface Props {
 	devices: readonly Device[]
 	copy: {
@@ -26,104 +24,148 @@ interface Props {
 		legend: string
 	}
 }
-
-// Only devices that really send data get packets; ideas stay as blueprints.
 const TRANSMITS: readonly Status[] = ['experimental', 'active', 'completed']
 
-const ROW = 52
-const DEVICE_X = 330
-const GATEWAY = { x: 520 }
-const HUB = { x: 700 }
-const AUTO = { x: 860 }
+function lines(text: string, limit = 25) {
+	const result: string[] = ['']
+	for (const word of text.split(' ')) {
+		const last = result.length - 1
+		if (result[last] && result[last]!.length + word.length + 1 > limit) result.push(word)
+		else result[last] += `${result[last] ? ' ' : ''}${word}`
+	}
+	return result
+}
 
 export default function LabNetwork({ devices, copy }: Props) {
 	const reduced = useReducedMotion()
 	const [hydrated, setHydrated] = useState(false)
 	const [selected, setSelected] = useState<string | null>(null)
 	useEffect(() => setHydrated(true), [])
-
-	const height = Math.max(240, devices.length * ROW + 40)
-	const cy = height / 2
-	const rowY = (i: number) => cy + (i - (devices.length - 1) / 2) * ROW
 	const active = devices.find((device) => device.id === selected)
+	const horizontalHeight = Math.max(240, devices.length * 52 + 40)
 
 	return (
 		<div
-			className='lab-network'
+			className='lab-network diagram-shell'
 			data-motion={reduced ? 'reduced' : 'full'}
 			data-has-selection={selected !== null}
 		>
-			<svg viewBox={`0 0 900 ${height}`} aria-hidden='true' focusable='false'>
-				{/* Infrastructure that already exists: gateway → hub → automations. */}
-				<line className='ln-infra' x1={GATEWAY.x} y1={cy} x2={HUB.x} y2={cy} />
-				<line className='ln-infra' x1={HUB.x} y1={cy} x2={AUTO.x} y2={cy} />
-				{devices.map((device, i) => {
-					const y = rowY(i)
-					const target = device.link === 'wifi' ? HUB : GATEWAY
-					const transmits = TRANSMITS.includes(device.status)
+			<div className='diagram-stage'>
+				{[false, true].map((vertical) => {
+					const cy = horizontalHeight / 2
+					const bottom = 80 + devices.length * 100
+					const width = vertical ? 420 : 900
+					const height = vertical ? bottom + 360 : horizontalHeight
+					const gateway = { x: vertical ? 100 : 520, y: vertical ? bottom : cy }
+					const hub = { x: vertical ? 100 : 700, y: vertical ? bottom + 120 : cy }
+					const automation = { x: vertical ? 100 : 860, y: vertical ? bottom + 240 : cy }
 					return (
-						<g
-							key={device.id}
-							className='ln-device'
-							data-status={device.status}
-							data-link={device.link}
-							data-selected={selected === device.id}
-							onClick={() => setSelected(selected === device.id ? null : device.id)}
+						<svg
+							key={String(vertical)}
+							className={vertical ? 'diagram-portrait' : 'diagram-landscape'}
+							viewBox={`0 0 ${width} ${height}`}
+							aria-hidden='true'
+							focusable='false'
 						>
-							<path
-								className='ln-wire'
-								d={`M${DEVICE_X} ${y} C${DEVICE_X + 90} ${y}, ${target.x - 90} ${cy}, ${target.x} ${cy}`}
+							<line className='ln-infra' x1={gateway.x} y1={gateway.y} x2={hub.x} y2={hub.y} />
+							<line
+								className='ln-infra'
+								x1={hub.x}
+								y1={hub.y}
+								x2={automation.x}
+								y2={automation.y}
 							/>
-							{transmits && (
-								<rect
-									className='ln-packet'
-									width='7'
-									height='7'
-									rx='2'
-									x={DEVICE_X - 3.5}
-									y={y - 3.5}
-									style={{
-										['--dx' as string]: `${target.x - DEVICE_X}px`,
-										['--dy' as string]: `${cy - y}px`,
-										animationDelay: `${i * 0.35}s`
-									}}
-								/>
-							)}
-							<circle className='ln-node' cx={DEVICE_X} cy={y} r='9' />
-							{device.status === 'prototype' && (
-								<circle className='ln-ping' cx={DEVICE_X} cy={y} r='9' />
-							)}
-							<text className='ln-label' x={DEVICE_X - 20} y={y + 5}>
-								{device.title}
-							</text>
-							<text className='ln-status' x={DEVICE_X + 18} y={y - 10}>
-								{copy.statuses[device.status]}
-							</text>
-						</g>
+							{devices.map((device, i) => {
+								const point = {
+									x: vertical ? 40 : 330,
+									y: vertical ? 65 + i * 100 : cy + (i - (devices.length - 1) / 2) * 52
+								}
+								const target = device.link === 'wifi' ? hub : gateway
+								const wire = vertical
+									? `M${point.x} ${point.y} C20 ${point.y}, 20 ${target.y}, ${target.x} ${target.y}`
+									: `M${point.x} ${point.y} C${point.x + 90} ${point.y}, ${target.x - 90} ${target.y}, ${target.x} ${target.y}`
+								return (
+									<g
+										key={device.id}
+										className='ln-device'
+										data-status={device.status}
+										data-link={device.link}
+										data-selected={selected === device.id}
+										onClick={() => setSelected(selected === device.id ? null : device.id)}
+									>
+										<path className='ln-wire' d={wire} />
+										{TRANSMITS.includes(device.status) && (
+											<rect
+												className='ln-packet'
+												width='7'
+												height='7'
+												rx='2'
+												x={-3.5}
+												y={-3.5}
+												style={{
+													offsetPath: `path('${wire}')`,
+													animationDelay: `${i * 0.35}s`
+												}}
+											/>
+										)}
+										<circle className='ln-node' cx={point.x} cy={point.y} r={vertical ? 12 : 9} />
+										{device.status === 'prototype' && (
+											<circle className='ln-ping' cx={point.x} cy={point.y} r={vertical ? 12 : 9} />
+										)}
+										<text className='ln-label' x={vertical ? 70 : point.x - 20} y={point.y + 5}>
+											{(vertical ? lines(device.title) : [device.title]).map((line, j) => (
+												<tspan key={j} x={vertical ? 70 : point.x - 20} dy={j === 0 ? 0 : 22}>
+													{line}
+												</tspan>
+											))}
+										</text>
+										<text
+											className='ln-status'
+											x={vertical ? 70 : point.x + 18}
+											y={vertical ? point.y - 24 : point.y - 10}
+										>
+											{copy.statuses[device.status]}
+										</text>
+									</g>
+								)
+							})}
+							{[
+								{ point: gateway, label: copy.gateway, shape: 'gateway' },
+								{ point: hub, label: copy.hub, shape: 'hub' },
+								{ point: automation, label: copy.automations, shape: 'automation' }
+							].map(({ point, label, shape }) => (
+								<g key={shape} className='ln-hub'>
+									{shape === 'gateway' ? (
+										<path d={`M${point.x} ${point.y - 18} l16 28 h-32 z`} />
+									) : shape === 'hub' ? (
+										<rect x={point.x - 20} y={point.y - 20} width='40' height='40' rx='10' />
+									) : (
+										<circle cx={point.x} cy={point.y} r='12' />
+									)}
+									<text
+										className={!vertical && shape === 'automation' ? 'is-end' : undefined}
+										x={vertical ? 145 : shape === 'automation' ? point.x + 14 : point.x}
+										y={
+											vertical ? point.y + 5 : shape === 'automation' ? point.y - 24 : point.y + 40
+										}
+									>
+										{(vertical ? lines(label, 22) : [label]).map((line, j) => (
+											<tspan
+												key={j}
+												x={vertical ? 145 : shape === 'automation' ? point.x + 14 : point.x}
+												dy={j === 0 ? 0 : 23}
+											>
+												{line}
+											</tspan>
+										))}
+									</text>
+								</g>
+							))}
+						</svg>
 					)
 				})}
-				<g className='ln-hub'>
-					<path d={`M${GATEWAY.x} ${cy - 18} l16 28 h-32 z`} />
-					<text x={GATEWAY.x} y={cy + 34}>
-						{copy.gateway}
-					</text>
-				</g>
-				<g className='ln-hub'>
-					<rect x={HUB.x - 20} y={cy - 20} width='40' height='40' rx='10' />
-					<text x={HUB.x} y={cy + 40}>
-						{copy.hub}
-					</text>
-				</g>
-				<g className='ln-hub'>
-					<circle cx={AUTO.x} cy={cy} r='12' />
-					<text className='is-end' x={AUTO.x + 14} y={cy - 24}>
-						{copy.automations}
-					</text>
-				</g>
-			</svg>
-
+			</div>
 			<p className='ln-legend'>{copy.legend}</p>
-
 			<ul className='ln-list' aria-label={copy.label}>
 				{devices.map((device) => (
 					<li key={device.id} data-status={device.status}>
@@ -143,7 +185,6 @@ export default function LabNetwork({ devices, copy }: Props) {
 					</li>
 				))}
 			</ul>
-
 			<div className='ln-detail' aria-live='polite'>
 				{active && (
 					<>

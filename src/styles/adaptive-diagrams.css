@@ -1,0 +1,248 @@
+/* Composition follows the space of the component AND the proportions of the screen.
+   Both geometries exist in SSR HTML; no JS is needed to choose the readable one. */
+.diagram-shell {
+	container-type: inline-size;
+	container-name: diagram;
+}
+.diagram-stage {
+	--diagram-portrait: 0;
+	--portrait-display: none;
+	--landscape-display: block;
+	min-width: 0;
+}
+.diagram-stage .diagram-portrait {
+	display: var(--portrait-display);
+}
+.diagram-stage .diagram-landscape {
+	display: var(--landscape-display);
+}
+@media (orientation: portrait) {
+	.diagram-stage {
+		--diagram-portrait: 1;
+		--portrait-display: block;
+		--landscape-display: none;
+	}
+	.pipeline {
+		grid-template-columns: 1fr;
+	}
+	.hero {
+		padding-block: clamp(3rem, 7vh, 7rem) 4rem;
+	}
+	.hero h1 {
+		font-size: clamp(2.5rem, 7.6vw, 5.5rem);
+	}
+	.section-heading {
+		grid-template-columns: minmax(5rem, 0.5fr) minmax(0, 3fr);
+	}
+}
+@container diagram (max-width: 840px) {
+	.diagram-stage {
+		--diagram-portrait: 1;
+		--portrait-display: block;
+		--landscape-display: none;
+	}
+}
+/* DNA needs extra room for 42 pairs of letters, not just the strand paths. */
+@container diagram (max-width: 960px) {
+	.helix-stage {
+		--diagram-portrait: 1;
+		--portrait-display: block;
+		--landscape-display: none;
+	}
+}
+@container diagram (max-width: 640px) {
+	.pipeline {
+		grid-template-columns: 1fr;
+	}
+}
+.helix-stage > .diagram-portrait {
+	max-width: 32rem;
+	margin-inline: auto;
+}
+.helix-vertical {
+	display: grid;
+	grid-template-columns: minmax(0, 200px) minmax(8.1rem, 1fr);
+	align-items: stretch;
+	gap: 0.5rem;
+}
+.helix-vertical svg {
+	max-width: 200px;
+}
+.helix-vertical .helix-rung text {
+	font-size: 20px;
+}
+.helix-vertical .helix-rung:not(.is-head):not(.is-nav) {
+	/* Depth remains visible without making the back strand's letters disappear. */
+	opacity: calc(0.62 + var(--depth) * 0.38);
+}
+.helix-vertical .helix-links {
+	display: block;
+	height: auto;
+	margin: 0;
+	font-size: 0.85rem;
+}
+.helix-vertical .helix-links li {
+	position: absolute;
+	top: var(--y);
+	left: 0;
+	width: 100%;
+	transform: translateY(-50%);
+}
+.new-site .helix-vertical .helix-links a {
+	display: block;
+	width: 100%;
+	min-height: 3rem;
+	padding: 0.4rem 0.45rem;
+	font-size: 0.85rem;
+	letter-spacing: 0;
+	border-color: var(--bp-tissue);
+	background: var(--bp-ink);
+	white-space: normal;
+	overflow-wrap: anywhere;
+}
+.helix-vertical .helix-links a span {
+	display: block;
+	font-size: 0.65rem;
+	margin-bottom: 0.2rem;
+}
+.lab-network .diagram-portrait {
+	max-width: 32rem;
+	margin-inline: auto;
+}
+.lab-network .diagram-portrait .ln-label,
+.lab-network .diagram-portrait .ln-hub text {
+	font-size: 18px;
+	text-anchor: start;
+	paint-order: stroke;
+	stroke: var(--bp-ink);
+	stroke-width: 5px;
+	stroke-linejoin: round;
+}
+.lab-network .diagram-portrait .ln-status {
+	font-size: 18px !important;
+}
+.skills-network .diagram-portrait {
+	max-width: 36rem;
+	margin-inline: auto;
+}
+.skills-network .diagram-portrait text {
+	font-size: 18px;
+}
+.sk-pathway path {
+	fill: none;
+	stroke: var(--bp-tissue);
+	stroke-width: 2;
+	stroke-dasharray: 2 6;
+	transition: stroke var(--motion-normal) ease-out;
+}
+.sk-pathway[data-lit='true'] path {
+	stroke: var(--bp-boundary);
+	stroke-dasharray: none;
+}
+.bio-tools li:has(button) {
+	padding: 0;
+}
+.bio-tools button {
+	min-height: 2.75rem;
+	padding: 0.35rem 0.65rem;
+	border: 0;
+	background: transparent;
+	color: inherit;
+	font: inherit;
+	cursor: pointer;
+	text-align: left;
+}
+.bio-tools button[aria-pressed='true'] {
+	color: var(--bp-sterile);
+	box-shadow: inset 0 -2px var(--glow);
+}
+.pipeline-figure .diagram-portrait {
+	max-width: 28rem;
+	margin-inline: auto;
+	--read-shift-x: 0px;
+	--read-shift-y: -40px;
+	--assembly-shift-x: -30px;
+	--assembly-shift-y: 0px;
+}
+.pipeline-figure .diagram-portrait .pl-loop-core {
+	font-size: 22px;
+}
+.pipeline-figure .diagram-portrait .pl-loop-core.is-small {
+	font-size: 16px;
+}
+.pipeline-figure .diagram-portrait .pl-loop-node text {
+	font-size: 16px;
+}
+/* Particles follow the actual curves/ellipse, not a chord through other labels. */
+.lab-network[data-motion='full'] .ln-packet,
+.pipeline[data-motion='full'] .pl-loop-pulse,
+.skills-network[data-motion='full'] .diagram-portrait .sk-pathway[data-lit='true'] .sk-flux {
+	animation-name: diagram-path-flow;
+}
+@keyframes diagram-path-flow {
+	0% {
+		offset-distance: 0%;
+		opacity: 0;
+	}
+	15%,
+	85% {
+		opacity: 1;
+	}
+	100% {
+		offset-distance: 100%;
+		opacity: 0;
+	}
+}
+@supports not (offset-path: path('M0 0 L1 1')) {
+	.lab-network .ln-packet,
+	.pipeline .pl-loop-pulse,
+	.skills-network .diagram-portrait .sk-flux {
+		display: none;
+	}
+}
+.site-mobile-menu {
+	display: none;
+}
+@media (max-width: 700px) {
+	.site-header .desktop-nav {
+		display: none;
+	}
+	.site-mobile-menu {
+		display: block;
+		order: 3;
+		width: 100%;
+	}
+	.site-mobile-menu summary {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		min-height: 2.75rem;
+		padding: 0.4rem 0.75rem;
+		border: 1px solid var(--bp-boundary);
+		border-radius: 6px;
+		background: var(--bp-lab);
+		color: var(--bp-sterile);
+		cursor: pointer;
+	}
+	.site-mobile-menu summary::marker,
+	.site-mobile-menu summary::-webkit-details-marker {
+		display: none;
+		content: '';
+	}
+	.site-mobile-menu[open] summary span {
+		transform: rotate(45deg);
+	}
+	.site-mobile-menu .site-nav {
+		display: flex;
+		flex-direction: column;
+		align-items: stretch;
+		gap: 0;
+		padding-top: 0.5rem;
+	}
+	.site-mobile-menu .site-nav a {
+		display: flex;
+		min-height: 3rem;
+		padding: 0.5rem 0.75rem;
+		border-bottom: 1px solid var(--line);
+	}
+}

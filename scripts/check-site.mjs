@@ -154,6 +154,49 @@ for (const locale of ['es', 'en']) {
 	assert.match(home, /<p class="hero-name">Quintero-L, O\.<\/p>/)
 	assert.match(home, /<meta content="Oscar Alexis Quintero López" name="author"/)
 	assert.match(home, /class="site-brand"[^>]*>Quintero-L, O<span>\.<\/span><\/a>/)
+	// Geometry is SSR-rendered twice; CSS chooses one without dropping letters or labels.
+	assert.match(home, /<details class="site-mobile-menu">/)
+	assert.match(home, /class="helix-stage diagram-stage"/)
+	assert.equal(
+		(home.match(/\bdata-rung="\d+"/g) ?? []).length,
+		42 * 2,
+		`${locale}: missing DNA rungs`
+	)
+	const labList = home.match(/<ul class="ln-list"[^>]*>([\s\S]*?)<\/ul>/)?.[1]
+	assert.ok(labList, `${locale}: missing lab list`)
+	const deviceCount = (labList.match(/<li\b/g) ?? []).length
+	assert.ok(deviceCount > 0, `${locale}: empty lab list`)
+	assert.equal(
+		(home.match(/class="ln-device"/g) ?? []).length,
+		deviceCount * 2,
+		`${locale}: missing lab nodes`
+	)
+	assert.equal(
+		(home.match(/class="ln-label"/g) ?? []).length,
+		deviceCount * 2,
+		`${locale}: missing lab labels`
+	)
+	assert.equal(
+		(home.match(/class="ln-status"/g) ?? []).length,
+		deviceCount * 2,
+		`${locale}: missing lab statuses`
+	)
+	for (const layout of ['portrait', 'landscape']) {
+		assert.match(home, new RegExp(`class="diagram-${layout}"`))
+		assert.match(
+			read(`${locale}/cv/index.html`),
+			new RegExp(`class="skills-graph diagram-${layout}"`)
+		)
+		for (const project of [
+			'genome-agent',
+			...(locale === 'es' || englishArticle ? ['phureja-genome'] : [])
+		]) {
+			assert.match(
+				read(`${locale}/research/${project}/index.html`),
+				new RegExp(`class="(?:pl-loop )?diagram-${layout}"`)
+			)
+		}
+	}
 	// The personal map has a complete HTML reading mode, even before hydration.
 	assert.match(home, /<details class="personal-map-reading">/)
 	assert.match(home, /class="personal-map-intro"/)

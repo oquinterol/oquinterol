@@ -55,6 +55,10 @@ export const personalMapCopy = {
 		zoomIn: 'Acercar',
 		zoomOut: 'Alejar',
 		reset: 'Volver al centro',
+		readSelection: 'Detalles del nodo seleccionado',
+		details: 'Detalles',
+		help: 'Cómo leer el mapa',
+		shortLegend: 'Relaciones conceptuales, no resultados experimentales.',
 		zoom: 'Escala del mapa',
 		kinds: {
 			question: 'Pregunta personal',
@@ -88,6 +92,10 @@ export const personalMapCopy = {
 		zoomIn: 'Zoom in',
 		zoomOut: 'Zoom out',
 		reset: 'Back to the centre',
+		readSelection: 'Details of selected node',
+		details: 'Details',
+		help: 'How to read the map',
+		shortLegend: 'Conceptual connections, not experimental results.',
 		zoom: 'Map scale',
 		kinds: {
 			question: 'Personal question',

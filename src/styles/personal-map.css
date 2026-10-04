@@ -162,6 +162,16 @@
 	font-size: 0.75rem;
 	color: var(--bp-bone);
 }
+.personal-map-help {
+	border-bottom: 1px solid var(--bp-tissue);
+}
+.personal-map-help summary {
+	min-height: 2.75rem;
+	padding: 0.65rem 1rem;
+	color: var(--bp-muted);
+	font-size: 0.8rem;
+	cursor: pointer;
+}
 .personal-map-hint {
 	margin: 0;
 	padding: 0.75rem 1.5rem 1rem;
@@ -296,6 +306,7 @@
 }
 .map-zoom {
 	display: flex;
+	flex-wrap: wrap;
 	align-items: center;
 	justify-content: center;
 	gap: 0.4rem;
@@ -545,6 +556,18 @@
 	.personal-map-legend {
 		padding: 0.6rem 1rem max(0.6rem, env(safe-area-inset-bottom));
 		font-size: 0.7rem;
+	}
+}
+.personal-map-dialog[data-layout='portrait'] .personal-map-viewport {
+	scrollbar-gutter: stable;
+}
+@media (max-width: 700px) {
+	.personal-map-dialog[data-layout='portrait'] .personal-map-exploration {
+		height: clamp(22rem, 58dvh, 42rem);
+	}
+	.personal-map-dialog[data-layout='portrait']
+		.personal-map-exploration:has(.personal-map-list-region) {
+		height: auto;
 	}
 }
 @media (prefers-reduced-motion: reduce) {

@@ -797,9 +797,6 @@
 	.helix {
 		padding-inline: 0.75rem;
 	}
-	.helix-rung text {
-		display: none;
-	}
 	.helix-links {
 		display: grid;
 		grid-template-columns: 1fr 1fr;
@@ -921,12 +918,6 @@
 .bio-tools li[data-hover='true'] {
 	border-color: var(--glow);
 	color: var(--bp-sterile);
-}
-@media (max-width: 600px) {
-	/* Too dense to read at phone width; filters and cards carry the same information. */
-	.skills-graph {
-		display: none;
-	}
 }
 /* Vector editor themed with the biopunk tokens. */
 .new-site .ve {
@@ -1193,13 +1184,13 @@
 @keyframes pl-drift {
 	from {
 		opacity: 0;
-		transform: translateX(-40px);
+		transform: translate(var(--read-shift-x, -40px), var(--read-shift-y, 0px));
 	}
 }
 @keyframes pl-settle {
 	from {
 		opacity: 0;
-		transform: translateY(-30px);
+		transform: translate(var(--assembly-shift-x, 0px), var(--assembly-shift-y, -30px));
 	}
 }
 @keyframes pl-draw {
@@ -1589,10 +1580,6 @@
 	margin: 0;
 }
 @media (max-width: 700px) {
-	/* Labels are unreadable at phone width; the accessible list takes over. */
-	.lab-network svg text {
-		display: none;
-	}
 	.ln-list {
 		grid-template-columns: 1fr;
 	}

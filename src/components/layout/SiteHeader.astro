@@ -11,8 +11,8 @@ interface Props {
 	page: Page
 	alternates: Array<{ locale: Locale; path: string }>
 }
-
 const { locale, page, alternates } = Astro.props
+const navLabel = locale === 'es' ? 'Navegación principal' : 'Main navigation'
 const navItems = [
 	{ page: 'home' as const, label: ui[locale].nav.home },
 	{ page: 'research' as const, label: ui[locale].nav.research },
@@ -20,6 +20,10 @@ const navItems = [
 	{ page: 'tools' as const, label: ui[locale].nav.tools },
 	{ page: 'cv' as const, label: ui[locale].nav.cv }
 ]
+const isCurrent = (destination: Page) =>
+	page === destination ||
+	(page === 'research-detail' && destination === 'research') ||
+	(page === 'vector-editor' && destination === 'tools')
 ---
 
 <header class='site-header'>
@@ -27,20 +31,14 @@ const navItems = [
 		<a class='site-brand' href={localizedPath(locale, 'home')} aria-label={ui[locale].brand}
 			>{profile.creditName.slice(0, -1)}<span>.</span></a
 		>
-		<nav aria-label={locale === 'es' ? 'Navegación principal' : 'Main navigation'}>
+		<nav class='desktop-nav' aria-label={navLabel}>
 			<ul class='site-nav'>
 				{
 					navItems.map((item) => (
 						<li>
 							<a
 								href={localizedPath(locale, item.page)}
-								aria-current={
-									page === item.page ||
-									(page === 'research-detail' && item.page === 'research') ||
-									(page === 'vector-editor' && item.page === 'tools')
-										? 'page'
-										: undefined
-								}
+								aria-current={isCurrent(item.page) ? 'page' : undefined}
 							>
 								{item.label}
 							</a>
@@ -49,6 +47,33 @@ const navItems = [
 				}
 			</ul>
 		</nav>
+		<details class='site-mobile-menu'>
+			<summary>{locale === 'es' ? 'Menú' : 'Menu'} <span aria-hidden='true'>＋</span></summary>
+			<nav aria-label={navLabel}>
+				<ul class='site-nav'>
+					{
+						navItems.map((item) => (
+							<li>
+								<a
+									href={localizedPath(locale, item.page)}
+									aria-current={isCurrent(item.page) ? 'page' : undefined}
+								>
+									{item.label}
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+		</details>
 		<LanguageSwitcher locale={locale} alternates={alternates} />
 	</div>
 </header>
+<script>
+	const menu = document.querySelector<HTMLDetailsElement>('.site-mobile-menu')
+	menu?.addEventListener('keydown', (event) => {
+		if (event.key !== 'Escape' || !menu.open) return
+		menu.open = false
+		menu.querySelector('summary')?.focus()
+	})
+</script>
