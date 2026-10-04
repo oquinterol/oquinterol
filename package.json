@@ -23,7 +23,7 @@
 		"@astrojs/react": "^6.0.6",
 		"@astrojs/rss": "^4.0.18",
 		"@astrojs/sitemap": "^3.7.2",
-		"@oquinterol/vector-editor": "https://github.com/oquinterol/vector-editor/releases/download/v0.4.0/oquinterol-vector-editor-0.4.0.tgz",
+		"@oquinterol/vector-editor": "https://github.com/oquinterol/vector-editor/releases/download/v0.4.1/oquinterol-vector-editor-0.4.1.tgz",
 		"astro": "^6.3.7",
 		"astro-expressive-code": "^0.42.0",
 		"autoprefixer": "^10.4.23",
