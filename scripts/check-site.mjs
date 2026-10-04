@@ -154,6 +154,42 @@ for (const locale of ['es', 'en']) {
 	assert.match(home, /<p class="hero-name">Quintero-L, O\.<\/p>/)
 	assert.match(home, /<meta content="Oscar Alexis Quintero López" name="author"/)
 	assert.match(home, /class="site-brand"[^>]*>Quintero-L, O<span>\.<\/span><\/a>/)
+	// The personal map has a complete HTML reading mode, even before hydration.
+	assert.match(home, /<details class="personal-map-reading">/)
+	assert.match(home, /class="personal-map-intro"/)
+	const mapNodes = home.match(/<ul class="map-reading-nodes">([\s\S]*?)<\/ul>/)?.[1]
+	const mapEdges = home.match(/<ul class="map-reading-edges">([\s\S]*?)<\/ul>/)?.[1]
+	assert.ok(mapNodes && mapEdges, `${locale}: missing personal map fallback`)
+	const nodeIds = [...mapNodes.matchAll(/<li\b[^>]*\bid="([^"]+)"/g)].map(([, id]) => id)
+	assert.equal(new Set(nodeIds).size, nodeIds.length, `${locale}: duplicate map nodes`)
+	assert.ok(nodeIds.some((id) => id.endsWith('-read-curiosity')))
+	for (const id of ['biology', 'programming', 'electronics', 'everyday', 'vector-editor']) {
+		assert.ok(
+			nodeIds.some((node) => node.endsWith(`-read-${id}`)),
+			`${locale}: missing ${id}`
+		)
+	}
+	const references = [...mapEdges.matchAll(/href="#([^"]+)"/g)].map(([, id]) => id)
+	for (const id of references) {
+		assert.ok(nodeIds.includes(id), `${locale}: dangling map relationship to ${id}`)
+	}
+	for (const id of nodeIds) {
+		assert.ok(references.includes(id), `${locale}: isolated personal map node ${id}`)
+	}
+	for (const [, nodeId, body] of mapNodes.matchAll(
+		/<li\b[^>]*\bid="([^"]+)"[^>]*>([\s\S]*?)<\/li>/g
+	)) {
+		assert.match(body, /<p>[^<]+<\/p>/, `${locale}: node without a description: ${nodeId}`)
+		if (
+			/photobioreactor|plant-monitor|connected-dna-quantifier|connected-thermocycler|connected-flow-hood|shaking-incubator/.test(
+				nodeId
+			)
+		) {
+			assert.match(body, /class="map-status"/, `${locale}: lab idea without a status: ${nodeId}`)
+		}
+	}
+	const reasons = [...mapEdges.matchAll(/<p>([^<]+)<\/p>/g)]
+	assert.equal(reasons.length * 2, references.length, `${locale}: every edge needs an explanation`)
 }
 assert.match(read('es/cv/index.html'), /Universidad Nacional de Colombia/)
 for (const locale of ['es', 'en']) {

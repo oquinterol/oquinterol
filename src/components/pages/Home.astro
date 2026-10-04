@@ -4,6 +4,8 @@ import HelixNav from '@/components/visualizations/HelixNav'
 import LabNetwork from '@/components/visualizations/LabNetwork'
 import SystemsExplorer from '@/components/visualizations/SystemsExplorer'
 import { profile } from '@/data/profile'
+import { getPersonalMap, personalMapCopy } from '@/data/personal-map'
+import '@/styles/personal-map.css'
 import { sp6a } from '@/data/sequences'
 import { localizedPath } from '@/i18n/routing'
 import { ui, type Locale } from '@/i18n/ui'
@@ -17,9 +19,14 @@ const { locale } = Astro.props
 const copy = ui[locale].home
 const labCopy = ui[locale].lab
 const labProjects = await getLabProjects(locale)
-const research = (await getPublishedResearch()).find(
-	(entry) => entry.data.locale === locale && entry.data.id === 'phureja-genome'
+const publishedResearch = (await getPublishedResearch()).filter(
+	(entry) => entry.data.locale === locale
 )
+const research = publishedResearch.find((entry) => entry.data.id === 'phureja-genome')
+const personalMap = getPersonalMap(locale, {
+	research: publishedResearch.map(({ data }) => data),
+	lab: labProjects.map(({ data }) => data)
+})
 const [systemsLabel, researchLabel, cvLabel, contactLabel] = copy.helix.links
 const helixLinks = [
 	{ id: 'systems', label: systemsLabel, href: '#systems-title' },
@@ -65,10 +72,9 @@ const helixLinks = [
 			</div>
 			<SystemsExplorer
 				systems={copy.systems}
-				label={copy.systemsTitle}
-				nextLabel={copy.nextConnection}
 				exploreLabel={copy.exploreSystems}
-				backLabel={copy.backToOverview}
+				graph={personalMap}
+				copy={personalMapCopy[locale]}
 				client:visible
 			/>
 			<section class='telemetry' aria-labelledby='telemetry-title'>
