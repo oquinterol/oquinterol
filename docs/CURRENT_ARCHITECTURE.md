@@ -53,7 +53,7 @@ Solo hay `src/content/post/proximamente.md`, marcado `draft: true`. `getAllPosts
 - Blog y utilidades `src/utils/post.ts`, `remarkReadingTime.ts`, `generateToc.ts`, `FormattedDate.astro`, RSS, tags, sitemap, Expressive Code, soporte Markdown/MDX, optimización de imágenes y la validación de esquemas.
 - Paleta clara y capacidad de tema oscuro como punto de partida técnico, **no** como identidad visual definitiva.
 
-No se encontraron inventarios de proyectos, investigaciones, experimentos o publicaciones estructurados en el repositorio. El prompt del producto y notas personales externas al repositorio pueden orientar la recopilación, pero **no se publicarán como hechos sin verificación editorial y permiso**. Ver [CONTENT_TODO.md](./CONTENT_TODO.md).
+No se encontraron inventarios de proyectos, investigaciones, experimentos o publicaciones estructurados en el repositorio. El prompt del producto y notas personales externas al repositorio pueden orientar la recopilación, pero **no se publicarán como hechos sin verificación editorial y permiso**. Ver el inventario editorial privado (`.private/CONTENT_TODO.md`, fuera del repositorio público).
 
 ## Arquitectura de componentes y estado de la UI
 

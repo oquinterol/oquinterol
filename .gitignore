@@ -24,3 +24,6 @@ CLAUDE.md
 
 # browser automation artefacts
 .playwright-mcp/
+
+# Private editorial notes (not published)
+.private/
