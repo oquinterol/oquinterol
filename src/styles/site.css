@@ -34,6 +34,36 @@
 .new-site * {
 	box-sizing: border-box;
 }
+/* Scrollbars as a minimal indicator: a thin line, no track or arrows (matches the editor).
+   Global on purpose: this stylesheet only loads on the new localized pages. */
+::-webkit-scrollbar {
+	width: 8px;
+	height: 8px;
+}
+::-webkit-scrollbar-track,
+::-webkit-scrollbar-corner {
+	background: transparent;
+}
+::-webkit-scrollbar-button {
+	display: none;
+}
+::-webkit-scrollbar-thumb {
+	border: 2px solid transparent;
+	border-radius: 999px;
+	background: var(--bp-tissue);
+	background-clip: padding-box;
+}
+::-webkit-scrollbar-thumb:hover {
+	background: var(--bp-boundary);
+	background-clip: padding-box;
+}
+@supports not selector(::-webkit-scrollbar) {
+	html:has(.new-site),
+	.new-site * {
+		scrollbar-width: thin;
+		scrollbar-color: var(--bp-tissue) transparent;
+	}
+}
 .new-site ::selection {
 	background: var(--bp-bio);
 	color: var(--bp-ink);
@@ -946,6 +976,8 @@
 	--ve-theme-map-muted: var(--bp-boundary);
 	--ve-theme-map-cut: var(--bp-pink);
 	--ve-theme-map-selection: rgb(164 230 109 / 0.16);
+	--ve-theme-scroll-thumb: var(--bp-tissue);
+	--ve-theme-scroll-thumb-hover: var(--bp-boundary);
 }
 /* Map as a specimen under the microscope: reticle grid, vignette, glowing arcs. */
 .new-site .ve-map {
@@ -1756,8 +1788,10 @@
 		flex-basis: 100%;
 	}
 	.site-nav {
-		justify-content: space-between;
-		gap: 1rem;
+		/* Six sections do not fit one line on a phone: wrap instead of overflowing. */
+		flex-wrap: wrap;
+		justify-content: flex-start;
+		gap: 0 1.1rem;
 	}
 	.footer-inner {
 		flex-direction: column;
