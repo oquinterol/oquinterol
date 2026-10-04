@@ -3,19 +3,23 @@
 ## Decisiones confirmadas
 
 - URLs prerenderizadas y canónicas por idioma: `/es/...` y `/en/...`. `es` usa español de Colombia (`html lang="es-CO"`, OG `es_CO`); `en` usa inglés (`html lang="en"`, OG `en_US` si se decide variante editorial). El prefijo de ruta sigue siendo `es`/`en` y no cambia por país.
-- **El propietario eligió `/` como selector neutral** `x-default`: selector ES/EN accesible y contenido mínimo propio; puede sugerir un idioma una sola vez usando preferencias del navegador, pero no redirigir silenciosa ni continuamente. Un enlace directo a `/es/...` o `/en/...` siempre gana a cookies, `localStorage` y al navegador.
+- **Decisión actual del propietario:** `/` conserva su HTML neutral `x-default`, pero pregunta el idioma solo hasta la primera elección explícita. En visitas posteriores, un script inline temprano reutiliza `site.locale` y entra a `/es/` o `/en/` sin volver a preguntar. No elige automáticamente por idioma del navegador. Un enlace directo a `/es/...` o `/en/...` siempre gana a `localStorage` y al navegador.
 - Slugs estables compartidos al principio: `/es/research/phureja-genome/` ↔ `/en/research/phureja-genome/`. Etiquetas, título, textos y metadata sí se localizan. Se documenta la alternativa de slugs traducidos como decisión futura, no una necesidad actual.
 - Contenido largo: `.mdx` independientes `es/{id}` y `en/{id}` bajo una misma colección por tipo; etiquetas cortas/UI: diccionario tipado. Una lengua ausente no recibe página simulada.
 
 ## Por qué esta combinación
 
-Astro ya renderiza HTML estático y tiene soporte nativo de [routing i18n](https://docs.astro.build/en/guides/internationalization/) y [colecciones de contenido](https://docs.astro.build/en/guides/content-collections/). La configuración ya aplicada es `locales: ['es', 'en']`, `defaultLocale: 'es'`, `routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false }`. Astro deja el `index.astro` raíz como selector sin redirección. El build y el verificador de `dist/` comprueban las rutas legadas, páginas dinámicas y alternates del sitemap, también con un prefijo de despliegue distinto de `/`. Los wrappers de páginas ES/EN pueden compartir vistas/layouts; los detalles dinámicos usarán `getStaticPaths()` sobre traducciones publicadas. Si Astro i18n automatizado interfiere con rutas legadas, evaluar `routing: 'manual'` con tests completos, no forzar una segunda aplicación duplicada.
+Astro ya renderiza HTML estático y tiene soporte nativo de [routing i18n](https://docs.astro.build/en/guides/internationalization/) y [colecciones de contenido](https://docs.astro.build/en/guides/content-collections/). La configuración ya aplicada es `locales: ['es', 'en']`, `defaultLocale: 'es'`, `routing: { prefixDefaultLocale: true, redirectToDefaultLocale: false }`. Astro deja el `index.astro` raíz como selector estático; la redirección de regreso es una mejora cliente condicionada a una elección guardada, no un redirect de servidor. El build y el verificador de `dist/` comprueban las rutas legadas, páginas dinámicas y alternates del sitemap, también con un prefijo de despliegue distinto de `/`. Los wrappers de páginas ES/EN pueden compartir vistas/layouts; los detalles dinámicos usarán `getStaticPaths()` sobre traducciones publicadas. Si Astro i18n automatizado interfiere con rutas legadas, evaluar `routing: 'manual'` con tests completos, no forzar una segunda aplicación duplicada.
 
 ## Ruta raíz y preferencia
 
 `/` debe ser HTML completo, indexable, canonical propio (`https://oquinterol.com/`), `<html lang="es">` o contenido genuinamente neutro con fragmentos etiquetados `lang="es"` / `lang="en"`; no declarar que el cuerpo entero está en una lengua que no tiene. Dos enlaces visibles hacia `/es/` y `/en/`. `hreflang="x-default"` en **ambas portadas** apunta a `/`; no se apunta a `/` como alternativa universal de páginas interiores no equivalentes.
 
-Algoritmo de mejora progresiva del selector raíz: primero mostrar ambos idiomas sin JS; después, si existe una preferencia manual guardada, destacar esa opción sin redirigir; de lo contrario, en la primera visita sugerir `es` o `en` por `navigator.languages`, sin bloquear la otra. Un cambio manual desde cualquier página guarda `site.locale` (valor `es` o `en`) solo si storage está disponible; su ausencia no rompe la UI. No leer `Accept-Language` del servidor en GitHub Pages estático ni simular que el build conoce al visitante.
+`LocalePreference.astro` se ejecuta inline al principio de `<head>`, antes del cuerpo, sin descargar un módulo ni hidratar React. Solo en `/` lee `site.locale`: si es exactamente `es` o `en`, oculta el selector durante la navegación y usa `location.replace()` hacia la portada local calculada con `localizedPath()`. No usa como URL un valor arbitrario del storage. También reevalúa la preferencia al restaurar `/` desde el back/forward cache.
+
+Sin elección guardada, ambos idiomas se muestran y `navigator.languages` puede sugerir uno sin guardarlo ni redirigir. Los clics y la activación por teclado en enlaces `data-language-choice` guardan la elección de forma síncrona, antes de la navegación nativa; el selector de la cabecera permite cambiarla después. Las páginas `/es/...` y `/en/...` no se redirigen ni cambian la preferencia al abrirlas directamente.
+
+`localStorage` persiste por navegador y origen, no por cuenta ni entre dispositivos. Si se borran los datos del sitio, se bloquea storage o se desactiva JS, el selector HTML sigue disponible y puede volver a preguntar. No se añade una cookie, un service worker, un backend ni una petición para consultar la preferencia. No leer `Accept-Language` del servidor en GitHub Pages estático ni simular que el build conoce al visitante.
 
 ## Cambio de idioma que preserva contexto
 
@@ -51,10 +55,11 @@ Ejemplo de equivalencia real, suponiendo **ambas versiones publicadas**:
 
 ## Tests de aceptación mínimos
 
-1. Build produce `/`, `/es/`, `/en/` y las rutas publicadas correspondientes en `dist/`; `/` no redirige automáticamente.
+1. Build produce `/`, `/es/`, `/en/` y las rutas publicadas correspondientes en `dist/`; `/` no redirige en la primera visita, sin JS, con storage bloqueado o con valores inválidos. Con `site.locale` válido regresa directamente al idioma elegido.
 2. `/es/` y `/en/` funcionan sin JS y no cambian por idioma del navegador ni preferencia guardada.
 3. Selector desde una página con traducción conserva sección e ID; desde una página sin traducción nunca apunta a 404 ni silencia un fallback.
 4. Para cada pareja generada, canonical y alternates recíprocos válidos; sin `hreflang` hacia páginas ausentes.
 5. Sitemap/robots/RSS solo mencionan URLs reales; etiquetas largas en español no rompen menú móvil; pestaña, foco y lector de pantalla funcionan.
+6. `pnpm run verify:locale` comprueba primer acceso, elección por teclado, regreso sin módulos JS, cambio manual, URL profunda explícita, valor inválido, back/forward cache, persistencia entre contextos, storage bloqueado y ausencia de JS. Usa Playwright como herramienta externa igual que `verify:responsive`; configurar `PLAYWRIGHT_MODULE` y, opcionalmente, `BROWSER_EXECUTABLE`. `LOCALE_BASE` prueba un prefijo de despliegue (hacer primero un build con ese `--base`); `LOCALE_OUT_DIR` permite usar otro directorio de build y `LOCALE_PORT` cambia el puerto de preview (4324 por defecto).
 
 Referencias: [Astro i18n routing](https://docs.astro.build/en/guides/internationalization/), [receta de contenido i18n](https://docs.astro.build/en/recipes/i18n/) y [sitemap](https://docs.astro.build/en/guides/integrations-guide/sitemap/).

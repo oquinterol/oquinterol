@@ -6,7 +6,7 @@ El sitio evoluciona de un CV/blog a un sistema público de investigación y cons
 
 **Stack objetivo incremental:** conservar Astro 6, TypeScript estricto, Content Layer/MDX, Tailwind 3 existente, Expressive Code, pnpm y GitHub Pages (sitio prerenderizado). `@astrojs/react`, `react` y `react-dom` ya se incorporaron para `SystemsExplorer` como isla localizada bajo `client:visible`, no como SPA envolvente ni dependencia de todas las páginas. El HTML inicial contiene toda la secuencia y la interacción solo reemplaza la vista cuando el visitante la solicita. Mantener dependencia de motion en evaluación hasta un caso de uso y una medición concretos; ningún CMS o servicio backend inicialmente.
 
-**Decisión del propietario:** `/` será un selector neutral `x-default` ES/EN, con sugerencia opcional de idioma del navegador en la primera visita, sin redirecciones automáticas repetidas. `/en/` y `/es/` son las rutas canónicas completas. Detalles en [I18N_ARCHITECTURE.md](./I18N_ARCHITECTURE.md).
+**Decisión actual del propietario:** `/` conserva el selector neutral `x-default` ES/EN en la primera visita; después reutiliza la elección explícita guardada en `site.locale` mediante un script inline temprano. No se decide por el idioma del navegador y las URLs directas conservan su idioma. `/en/` y `/es/` son las rutas canónicas completas. Detalles en [I18N_ARCHITECTURE.md](./I18N_ARCHITECTURE.md).
 
 ## Mapa de rutas objetivo
 
