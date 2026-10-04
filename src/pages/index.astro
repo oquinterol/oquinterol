@@ -1,6 +1,7 @@
 ---
 import '@/styles/site.css'
 import BaseHead from '@/components/BaseHead.astro'
+import LocalePreference from '@/components/navigation/LocalePreference.astro'
 import { alternatePaths, localizedPath } from '@/i18n/routing'
 import { profile } from '@/data/profile'
 import { ui } from '@/i18n/ui'
@@ -11,6 +12,7 @@ const alternates = alternatePaths('home')
 <!doctype html>
 <html lang='es'>
 	<head>
+		<LocalePreference redirectHome />
 		<BaseHead
 			title={profile.name}
 			description='Investigación, biología y computación. Research, biology, and computing.'
@@ -48,28 +50,11 @@ const alternates = alternatePaths('home')
 			Biología · Computación · Sistemas <span lang='en'>/ Biology · Computing · Systems</span>
 		</footer>
 		<script>
-			let preferred: 'es' | 'en' | undefined
-			try {
-				const stored = localStorage.getItem('site.locale')
-				if (stored === 'es' || stored === 'en') preferred = stored
-			} catch {
-				/* The selector works without storage. */
-			}
-			if (!preferred) {
-				const browser = navigator.languages?.find((language) => /^(es|en)(-|$)/i.test(language))
-				preferred = browser?.toLowerCase().startsWith('en') ? 'en' : 'es'
-			}
+			// A suggestion is not a stored choice: first-time visitors still choose themselves.
+			const browser = navigator.languages?.find((language) => /^(es|en)(-|$)/i.test(language))
+			const preferred = browser?.toLowerCase().startsWith('en') ? 'en' : 'es'
 			const suggestion = document.querySelector<HTMLElement>(`[data-suggestion="${preferred}"]`)
 			if (suggestion) suggestion.hidden = false
-			document.querySelectorAll<HTMLAnchorElement>('[data-language-choice]').forEach((link) => {
-				link.addEventListener('click', () => {
-					try {
-						localStorage.setItem('site.locale', link.dataset.languageChoice ?? '')
-					} catch {
-						/* Optional. */
-					}
-				})
-			})
 		</script>
 	</body>
 </html>

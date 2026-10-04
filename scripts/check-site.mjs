@@ -61,7 +61,19 @@ const pairs = [
 
 assert.match(root, /<html lang="es"/)
 assert.match(root, /lang="en"/)
-assert.doesNotMatch(root, /http-equiv="refresh"|location\.(?:assign|replace|href)\s*=/)
+assert.doesNotMatch(root, /http-equiv="refresh"/)
+// / stays neutral in SSR; only a stored explicit choice can bypass its selector.
+const preferenceScript = root.match(
+	/<script\b[^>]*data-locale-preference[^>]*>([\s\S]*?)<\/script>/
+)?.[1]
+assert.ok(preferenceScript, 'Missing early locale preference script')
+assert.ok(
+	root.indexOf('data-locale-preference') < root.indexOf('<body'),
+	'Locale restore must run before body rendering'
+)
+assert.match(preferenceScript, /localStorage\.getItem\(['"]site\.locale['"]\)/)
+assert.match(preferenceScript, /stored === ['"]es['"] \|\| stored === ['"]en['"]/)
+assert.match(preferenceScript, /window\.location\.replace\(localeHomes\[stored\]\)/)
 assert.ok(root.includes(`href="${absolutePath('/es/')}"`))
 assert.ok(root.includes(`href="${absolutePath('/en/')}"`))
 

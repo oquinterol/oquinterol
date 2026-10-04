@@ -1,0 +1,53 @@
+---
+import { localizedPath } from '@/i18n/routing'
+
+interface Props {
+	redirectHome?: boolean
+}
+const { redirectHome = false } = Astro.props
+const localeHomes = { es: localizedPath('es', 'home'), en: localizedPath('en', 'home') }
+---
+
+<!-- Inline in the head: returning visitors need neither hydration nor a JS download. -->
+<script is:inline define:vars={{ localeHomes, redirectHome }} data-locale-preference>
+	;(() => {
+		const restoreHome = () => {
+			try {
+				const stored = localStorage.getItem('site.locale')
+				// Only an explicit supported choice redirects; browser language is not consent.
+				if (stored === 'es' || stored === 'en') {
+					document.documentElement.setAttribute('data-locale-redirecting', '')
+					window.location.replace(localeHomes[stored])
+					return
+				}
+			} catch {
+				/* Privacy settings must not break the selector or native links. */
+			}
+			document.documentElement.removeAttribute('data-locale-redirecting')
+		}
+		if (redirectHome) {
+			restoreHome()
+			// Going back can restore / from the back/forward cache without rerunning scripts.
+			window.addEventListener('pageshow', (event) => {
+				if (event.persisted) restoreHome()
+			})
+		}
+		document.addEventListener('click', (event) => {
+			const target = event.target
+			if (!(target instanceof Element)) return
+			const link = target.closest('a[data-language-choice]')
+			const locale = link?.getAttribute('data-language-choice')
+			if (locale !== 'es' && locale !== 'en') return
+			try {
+				localStorage.setItem('site.locale', locale)
+			} catch {
+				/* Saving is optional; navigation still works with storage blocked. */
+			}
+		})
+	})()
+</script>
+<style is:global>
+	html[data-locale-redirecting] .language-gate {
+		visibility: hidden;
+	}
+</style>
