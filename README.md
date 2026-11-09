@@ -1,76 +1,76 @@
 <div align="center">
 
-# Hola, soy Oscar 🧬
+# Hi, I'm Oscar 🧬
 
-### Biología · Computación · Sistemas
+### Biology · Computing · Systems
 
-**Oscar Alexis Quintero López** · Bioinformático · Bogotá, Colombia 🇨🇴
+**Oscar Alexis Quintero López** · Bioinformatician · Bogotá, Colombia 🇨🇴
 
-De las secuencias a los sistemas: código para explorar la vida.
+From sequences to systems: code to explore life.
 
-[![Sitio web](https://img.shields.io/badge/oquinterol.com-070a09?style=for-the-badge&logoColor=white)](https://oquinterol.com)
+[![Website](https://img.shields.io/badge/oquinterol.com-070a09?style=for-the-badge&logoColor=white)](https://oquinterol.com)
 [![ORCID](https://img.shields.io/badge/ORCID-A6CE39?style=for-the-badge&logo=orcid&logoColor=black)](https://orcid.org/0000-0001-8926-6400)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-0A66C2?style=for-the-badge&logoColor=white)](https://www.linkedin.com/in/oquinterol/)
-[![Contacto](https://img.shields.io/badge/Hablemos-3D7A6A?style=for-the-badge&logo=gmail&logoColor=white)](mailto:oquinterol@unal.edu.co)
+[![Contact](https://img.shields.io/badge/Let's_talk-3D7A6A?style=for-the-badge&logo=gmail&logoColor=white)](mailto:oquinterol@unal.edu.co)
 
 </div>
 
 ---
 
-## 🔬 Entre el laboratorio y la terminal
+## 🔬 Between the lab bench and the terminal
 
-Trabajo en **genómica, biología de sistemas y reproducibilidad computacional**. Construyo flujos de análisis y herramientas para pasar de datos biológicos a resultados que se puedan explorar, entender y volver a obtener.
+I work on **genomics, systems biology, and computational reproducibility**. I build analysis workflows and tools that turn biological data into results that can be explored, understood, and reproduced.
 
-- **Genomas y transcriptomas:** ensamblaje, anotación y análisis de datos de secuenciación.
-- **Metabolismo como sistema:** reconstrucción de modelos a escala genómica y análisis de flujos.
-- **Ciencia reproducible:** código versionado, entornos aislados y flujos de trabajo automatizados.
-- **Herramientas abiertas:** aplicaciones que conectan preguntas del laboratorio con soluciones computacionales.
+- **Genomes and transcriptomes:** assembly, annotation, and sequencing data analysis.
+- **Metabolism as a system:** genome-scale metabolic model reconstruction and flux analysis.
+- **Reproducible science:** version-controlled code, isolated environments, and automated workflows.
+- **Open tools:** applications that connect lab questions with computational solutions.
 
-Mi formación combina la **Maestría en Bioinformática** de la Universidad Nacional de Colombia y la **Licenciatura en Biología** de la Universidad Distrital Francisco José de Caldas.
+I hold an **M.Sc. in Bioinformatics** from the National University of Colombia and a **Bachelor's degree in Biology Education** from Francisco José de Caldas District University.
 
-## 🛠️ Mi caja de herramientas
+## 🛠️ My toolbox
 
-| Área                       | Herramientas                                                              |
-| :------------------------- | :------------------------------------------------------------------------ |
-| Programación y datos       | `Python` · `R` · `Bash` · `SQL` · `Jupyter`                               |
-| Bioinformática             | `RNA-seq` · `BLAST+` · `BWA/Bowtie2` · `BUSCO` · `FastQC/MultiQC`         |
-| Biología de sistemas       | `COBRApy` · `SBML` · `KEGG` · `MEMOTE` · `FBA/FVA`                        |
-| Reproducibilidad y cómputo | `Git` · `Snakemake` · `Nextflow` · `Conda` · `Docker` · `Linux` · `SLURM` |
+| Area                          | Tools                                                                     |
+| :---------------------------- | :------------------------------------------------------------------------ |
+| Programming and data          | `Python` · `R` · `Bash` · `SQL` · `Jupyter`                               |
+| Bioinformatics                | `RNA-seq` · `BLAST+` · `BWA/Bowtie2` · `BUSCO` · `FastQC/MultiQC`         |
+| Systems biology               | `COBRApy` · `SBML` · `KEGG` · `MEMOTE` · `FBA/FVA`                        |
+| Reproducibility and computing | `Git` · `Snakemake` · `Nextflow` · `Conda` · `Docker` · `Linux` · `SLURM` |
 
-## 🌱 Proyectos para explorar
+## 🌱 Projects to explore
 
-| Proyecto                                                                                  | De qué va                                                                                                                                                             |
-| :---------------------------------------------------------------------------------------- | :-------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| 🧬 **[Editor de vectores](https://github.com/oquinterol/vector-editor)**                  | Simular clonación, cortes y ligación; explorar el plásmido resultante sin sacar las secuencias del navegador. **[Pruébalo ↗](https://vector-editor.oquinterol.com/)** |
-| 🤖 **[GenomeAgent](https://github.com/oquinterol/Agentic-Bioinformatician)**              | Agente para explorar estrategias de ensamblaje genómico bajo restricciones de recursos, con validación y registro de procedencia. **En desarrollo activo.**           |
-| 🥔 **[Genómica de la papa criolla](https://oquinterol.com/es/research/phureja-genome/)**  | Mi tesis de maestría: ensamblaje y anotación del genoma de la variedad Colombia y reconstrucción de un modelo metabólico.                                             |
-| 🧪 **[Pipeline de RNA-seq](https://oquinterol.com/es/research/phureja-rnaseq-pipeline/)** | Mi trabajo de grado sobre un flujo de análisis de RNA-seq para papa criolla.                                                                                          |
+| Project                                                                                | What it's about                                                                                                                                                                     |
+| :------------------------------------------------------------------------------------- | :---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| 🧬 **[Vector editor](https://github.com/oquinterol/vector-editor)**                    | Simulate cloning, digestion, and ligation, and explore the resulting plasmid without your sequences ever leaving the browser. **[Try it ↗](https://vector-editor.oquinterol.com/)** |
+| 🤖 **[GenomeAgent](https://github.com/oquinterol/Agentic-Bioinformatician)**           | An agent that explores genome assembly strategies under resource constraints, with validation and provenance tracking. **Under active development.**                                |
+| 🥔 **[Criolla potato genomics](https://oquinterol.com/en/research/phureja-genome/)**   | My master's thesis: genome assembly and annotation of the Colombia variety and reconstruction of a metabolic model.                                                                 |
+| 🧪 **[RNA-seq pipeline](https://oquinterol.com/en/research/phureja-rnaseq-pipeline/)** | My undergraduate thesis: an RNA-seq analysis workflow for criolla potato.                                                                                                           |
 
-Más investigación, herramientas y notas en **[oquinterol.com](https://oquinterol.com)** — en español e inglés.
+More research, tools, and notes at **[oquinterol.com](https://oquinterol.com)**, in English and Spanish.
 
-## ☕ Conversemos
+## ☕ Let's talk
 
-¿Trabajas en genómica, modelos metabólicos o herramientas para investigación? **[Hablemos](mailto:oquinterol@unal.edu.co)**.
+Working on genomics, metabolic models, or research tools? **[Get in touch](mailto:oquinterol@unal.edu.co)**.
 
-[Mi trayectoria en ORCID](https://orcid.org/0000-0001-8926-6400) · [Conectemos en LinkedIn](https://www.linkedin.com/in/oquinterol/)
+[My record on ORCID](https://orcid.org/0000-0001-8926-6400) · [Connect on LinkedIn](https://www.linkedin.com/in/oquinterol/)
 
 ---
 
 <details>
-<summary><strong>💻 Sobre este repositorio: mi sitio personal</strong></summary>
+<summary><strong>💻 About this repository: my personal website</strong></summary>
 
-Además de este README de perfil, aquí vive el código de **[oquinterol.com](https://oquinterol.com)**, construido con Astro. El sitio se despliega automáticamente a GitHub Pages desde `main` mediante GitHub Actions.
+Besides this profile README, this repository holds the code for **[oquinterol.com](https://oquinterol.com)**, built with Astro. The site deploys automatically to GitHub Pages from `main` through GitHub Actions.
 
-### Desarrollo local
+### Local development
 
-Usa Node.js 22 y pnpm 11.2.2, las mismas versiones del flujo de despliegue.
+Use Node.js 22 and pnpm 11.2.2, the same versions as the deployment workflow.
 
 ```bash
 pnpm install
 pnpm dev
 ```
 
-### Validación y build
+### Validation and build
 
 ```bash
 pnpm run format:check
