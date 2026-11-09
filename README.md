@@ -26,7 +26,7 @@ I work on **genomics, systems biology, and computational reproducibility**. I bu
 - **Reproducible science:** version-controlled code, isolated environments, and automated workflows.
 - **Open tools:** applications that connect lab questions with computational solutions.
 
-I hold an **M.Sc. in Bioinformatics** from the National University of Colombia and a **Bachelor's degree in Biology Education** from Francisco José de Caldas District University.
+I hold an **M.Sc. in Bioinformatics** from the National University of Colombia and a **Bachelor's degree in Biology** from Francisco José de Caldas District University.
 
 ## 🛠️ My toolbox
 
